@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:e_commerce/core/error/failures.dart';
 import 'package:e_commerce/features/home/data/data_sources/home_tab_data_source.dart';
 import 'package:e_commerce/features/home/data/models/CategoryModel.dart';
+import 'package:e_commerce/features/home/data/models/SubCatModel.dart';
 
 class HomeTabLocalDataSource implements HomeTabDataSource {
   @override
@@ -13,6 +14,12 @@ class HomeTabLocalDataSource implements HomeTabDataSource {
   @override
   Future<Either<Failures, CategoryOrBrandModel>> getBrands() {
     // TODO: implement getBrands
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failures, SubCatModel>> getSubCat(String catCode) {
+    // TODO: implement getSubCat
     throw UnimplementedError();
   }
 }

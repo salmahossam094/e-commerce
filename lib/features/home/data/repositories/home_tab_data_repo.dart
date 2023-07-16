@@ -4,6 +4,8 @@ import 'package:e_commerce/features/home/data/data_sources/home_tab_data_source.
 import 'package:e_commerce/features/home/domain/entities/CategoryOrBrandEntity.dart';
 import 'package:e_commerce/features/home/domain/repositories/home_domain_repo.dart';
 
+import '../../domain/entities/SubCatEntity.dart';
+
 class HomeTabDataRepo implements HomeTabDomainRepo {
   HomeTabDataSource homeTabDataSource;
 
@@ -16,4 +18,8 @@ class HomeTabDataRepo implements HomeTabDomainRepo {
   @override
   Future<Either<Failures, CategoryOrBrandEntity>> getBrands() =>
       homeTabDataSource.getBrands();
+
+  @override
+  Future<Either<Failures, SubCatEntity>> getSubCat(String catCode) =>
+      homeTabDataSource.getSubCat(catCode);
 }

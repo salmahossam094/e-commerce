@@ -36,15 +36,15 @@ class HomeTab extends StatelessWidget {
                               size: 35,
                             ),
                             enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25),
+                                borderRadius: BorderRadius.circular(25.r),
                                 borderSide:
                                     const BorderSide(color: AppColors.primary)),
                             focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25),
+                                borderRadius: BorderRadius.circular(25.r),
                                 borderSide:
                                     const BorderSide(color: AppColors.primary)),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25),
+                                borderRadius: BorderRadius.circular(25.r),
                                 borderSide:
                                     const BorderSide(color: AppColors.primary)),
                             hintText: 'what do you search for?',
@@ -85,11 +85,11 @@ class HomeTab extends StatelessWidget {
                 SizedBox(
                   height: 270.h,
                   child: state is HomeLoadingState
-                      ? Center(child: CircularProgressIndicator())
+                      ? const Center(child: CircularProgressIndicator())
                       : GridView.builder(
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2),
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2, crossAxisSpacing: 2),
                           itemCount: HomeCubit.get(context).categories.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
@@ -101,8 +101,9 @@ class HomeTab extends StatelessWidget {
                                   child: ClipOval(
                                     child: Image.network(
                                       HomeCubit.get(context)
-                                          .categories[index]
-                                          .image!,
+                                              .categories[index]
+                                              .image ??
+                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy0iQbDTKhlpXDKFfRjPGm2FsII2G8MoowXFGfbZfL&s',
                                       fit: BoxFit.fill,
                                     ),
                                   ),
@@ -134,11 +135,11 @@ class HomeTab extends StatelessWidget {
                 SizedBox(
                   height: 270.h,
                   child: state is HomeLoadingState
-                      ? Center(child: CircularProgressIndicator())
+                      ? const Center(child: CircularProgressIndicator())
                       : GridView.builder(
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2),
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2, crossAxisSpacing: 2),
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (BuildContext context, int index) {
                             return Column(
@@ -149,8 +150,9 @@ class HomeTab extends StatelessWidget {
                                   child: ClipOval(
                                     child: Image.network(
                                       HomeCubit.get(context)
-                                          .Brands[index]
-                                          .image!,
+                                              .brands[index]
+                                              .image ??
+                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy0iQbDTKhlpXDKFfRjPGm2FsII2G8MoowXFGfbZfL&s',
                                       fit: BoxFit.fill,
                                     ),
                                   ),
@@ -159,14 +161,16 @@ class HomeTab extends StatelessWidget {
                                   height: 8.h,
                                 ),
                                 Text(
-                                  HomeCubit.get(context).Brands[index].name ?? "",
-                                  style: poppins18W500()
-                                      .copyWith(color: AppColors.primary,fontSize: 14.sp),
+                                  HomeCubit.get(context).brands[index].name ??
+                                      "",
+                                  style: poppins18W500().copyWith(
+                                      color: AppColors.primary,
+                                      fontSize: 14.sp),
                                 ),
                               ],
                             );
                           },
-                          itemCount: HomeCubit.get(context).Brands.length,
+                          itemCount: HomeCubit.get(context).brands.length,
                         ),
                 )
               ],

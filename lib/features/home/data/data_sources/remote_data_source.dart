@@ -5,6 +5,7 @@ import 'package:e_commerce/core/error/failures.dart';
 import 'package:e_commerce/core/utils/constants.dart';
 import 'package:e_commerce/features/home/data/data_sources/home_tab_data_source.dart';
 import 'package:e_commerce/features/home/data/models/CategoryModel.dart';
+import '../models/SubCatModel.dart';
 
 class HomeTabRemoteDataSource implements HomeTabDataSource {
   Dio dio = Dio();
@@ -31,5 +32,16 @@ class HomeTabRemoteDataSource implements HomeTabDataSource {
     } catch (e) {
       return Left(ServerFailures(e.toString()));
     }
+  }
+
+  @override
+  Future<Either<Failures, SubCatModel>> getSubCat(String catCode) async {
+   try{
+     var response = await dio.get('${Constants.baseApiUrl}${EndPoints.getCategory}/$catCode/subcategories');
+     SubCatModel model=SubCatModel.fromJson(response.data);
+     return Right(model);
+   }catch(e){
+     return Left(ServerFailures(e.toString()));
+   }
   }
 }
