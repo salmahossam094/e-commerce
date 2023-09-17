@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, file_names
+
 import 'package:e_commerce/features/home/domain/entities/CategoryOrBrandEntity.dart';
 
 /// results : 10

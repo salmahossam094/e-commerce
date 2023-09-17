@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:e_commerce/features/home/domain/entities/SubCatEntity.dart';
 
 /// results : 2

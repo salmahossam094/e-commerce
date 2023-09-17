@@ -34,7 +34,9 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             );
-          } else if (state is LoginErrorState) {
+          }
+          else if (state is LoginErrorState)
+          {
             Navigator.pop(context);
             showDialog(
               context: context,
@@ -43,7 +45,8 @@ class LoginScreen extends StatelessWidget {
                 content: Text(state.failures.message),
               ),
             );
-          } else if (state is LoginSuccessState) {
+          }
+          else if (state is LoginSuccessState) {
             Navigator.pop(context);
             Navigator.pushNamedAndRemoveUntil(
               context,

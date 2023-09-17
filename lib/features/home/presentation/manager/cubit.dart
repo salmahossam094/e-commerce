@@ -80,7 +80,6 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(HomeGetSubLoadingState());
     GetSubCatUseCase getSubCatUseCase = GetSubCatUseCase(homeTabDomainRepo);
     var result = await getSubCatUseCase.call(catCode);
-
     result.fold((l) {
       emit(HomeGetSubCatErrorState(l));
     }, (r) {

@@ -1,7 +1,9 @@
+import 'package:e_commerce/config/routes/routes.dart';
 import 'package:e_commerce/core/utils/app_colors.dart';
 import 'package:e_commerce/core/utils/text_styles.dart';
 import 'package:e_commerce/features/home/presentation/manager/cubit.dart';
 import 'package:e_commerce/features/home/presentation/manager/states.dart';
+import 'package:e_commerce/features/home/presentation/widgets/search_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,174 +35,148 @@ class CategoryTab extends StatelessWidget {
         Navigator.pop(context);
       }
     }, builder: (context, state) {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 348.w,
-                  height: 50.h,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        prefixIcon: const Icon(
-                          Icons.search_rounded,
-                          color: AppColors.primary,
-                          size: 35,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25.r),
-                            borderSide:
-                                const BorderSide(color: AppColors.primary)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25.r),
-                            borderSide:
-                                const BorderSide(color: AppColors.primary)),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25.r),
-                            borderSide:
-                                const BorderSide(color: AppColors.primary)),
-                        hintText: 'what do you search for?',
-                        filled: true,
-                        hintStyle: poppins18W500().copyWith(
-                          color: AppColors.hintColor,
-                          fontWeight: FontWeight.w100,
-                        ),
-                        contentPadding: const EdgeInsets.only(top: 25)),
+      return HomeCubit.get(context).categories.isEmpty &&
+              HomeCubit.get(context).subCat.isEmpty
+          ? const Center(child: CircularProgressIndicator())
+          : Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  const SearchWidget(),
+                  SizedBox(
+                    height: 16.h,
                   ),
-                ),
-                const Spacer(),
-                const Icon(
-                  Icons.shopping_cart_outlined,
-                  color: AppColors.primary,
-                )
-              ],
-            ),
-            SizedBox(
-              height: 16.h,
-            ),
-            state is HomeLoadingState
-                ? const CircularProgressIndicator()
-                : Expanded(
-                    child: Row(
-                      children: [
-                        Container(
-                          height: double.infinity,
-                          width: 180.w,
-                          decoration: BoxDecoration(
-                              border: Border(
-                            top: BorderSide(
-                                color: AppColors.primary, width: 1.w),
-                            left: BorderSide(
-                                color: AppColors.primary, width: 1.w),
-                          )),
-                          child: ListView.builder(
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                  onTap: () {
-                                    HomeCubit.get(context).changeCat(index);
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, bottom: 10, top: 10),
-                                    decoration: BoxDecoration(
-                                      color: HomeCubit.get(context)
-                                                  .selectedValue ==
-                                              index
-                                          ? Colors.white
-                                          : AppColors.primary.withOpacity(0.2),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          width: 5.w,
-                                          height: 60.h,
-                                          margin: const EdgeInsets.only(
-                                            right: 5,
-                                          ),
+                  state is HomeLoadingState
+                      ? const CircularProgressIndicator()
+                      : Expanded(
+                          child: Row(
+                            children: [
+                              Container(
+                                height: double.infinity,
+                                width: 180.w,
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                  top: BorderSide(
+                                      color: AppColors.primary, width: 1.w),
+                                  left: BorderSide(
+                                      color: AppColors.primary, width: 1.w),
+                                )),
+                                child: ListView.builder(
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                        onTap: () {
+                                          HomeCubit.get(context)
+                                              .changeCat(index);
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, bottom: 10, top: 10),
                                           decoration: BoxDecoration(
-                                              color: HomeCubit.get(context)
-                                                          .selectedValue ==
-                                                      index
-                                                  ? AppColors.primary
-                                                  : Colors.transparent,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(10.r)),
-                                              border: Border.all(
+                                            color: HomeCubit.get(context)
+                                                        .selectedValue ==
+                                                    index
+                                                ? Colors.white
+                                                : AppColors.primary
+                                                    .withOpacity(0.2),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Container(
                                                 width: 5.w,
-                                                color: HomeCubit.get(context)
-                                                            .selectedValue ==
-                                                        index
-                                                    ? AppColors.primary
-                                                    : Colors.transparent,
-                                              )),
-                                        ),
-                                        Text(
-                                            HomeCubit.get(context)
-                                                    .categories[index]
-                                                    .name ??
-                                                "",
-                                            style: poppins18W500().copyWith(
-                                              color: AppColors.primary,
-                                            )),
-                                      ],
-                                    ),
-                                  ));
-                            },
-                            itemCount: HomeCubit.get(context).categories.length,
-                          ),
-                        ),
-                        Expanded(
-                            child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                HomeCubit.get(context)
-                                        .categories[HomeCubit.get(context)
-                                            .selectedValue]
-                                        .name ??
-                                    '',
-                                style: poppins18W500()
-                                    .copyWith(color: AppColors.primary),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: GridView.builder(
-                                  itemBuilder: (context, index) => Center(
-                                    child: Text(
-                                      HomeCubit.get(context)
-                                              .subCat[index]
-                                              .name ??
-                                          "",
-                                      style: poppins18W500().copyWith(
-                                          color: AppColors.primary,
-                                          fontSize: 15.sp),
-                                    ),
-                                  ),
+                                                height: 60.h,
+                                                margin: const EdgeInsets.only(
+                                                  right: 5,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                    color: HomeCubit.get(
+                                                                    context)
+                                                                .selectedValue ==
+                                                            index
+                                                        ? AppColors.primary
+                                                        : Colors.transparent,
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                10.r)),
+                                                    border: Border.all(
+                                                      width: 5.w,
+                                                      color: HomeCubit.get(
+                                                                      context)
+                                                                  .selectedValue ==
+                                                              index
+                                                          ? AppColors.primary
+                                                          : Colors.transparent,
+                                                    )),
+                                              ),
+                                              Text(
+                                                  HomeCubit.get(context)
+                                                          .categories[index]
+                                                          .name ??
+                                                      "",
+                                                  style:
+                                                      poppins18W500().copyWith(
+                                                    color: AppColors.primary,
+                                                  )),
+                                            ],
+                                          ),
+                                        ));
+                                  },
                                   itemCount:
-                                      HomeCubit.get(context).subCat.length,
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2,
-                                          mainAxisSpacing: 2,
-                                          crossAxisSpacing: 6),
+                                      HomeCubit.get(context).categories.length,
                                 ),
                               ),
-                            )
-                          ],
-                        ))
-                      ],
-                    ),
-                  )
-          ],
-        ),
-      );
+                              Expanded(
+                                  child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      HomeCubit.get(context)
+                                              .categories[HomeCubit.get(context)
+                                                  .selectedValue]
+                                              .name ??
+                                          '',
+                                      style: poppins18W500()
+                                          .copyWith(color: AppColors.primary),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: GridView.count(
+                                          crossAxisCount: 2,
+                                          childAspectRatio: 4 / 5,
+                                          shrinkWrap: true,
+                                          children: HomeCubit.get(context)
+                                              .subCat
+                                              .map((e) => InkWell(
+                                                    onTap: () {
+                                                      Navigator.pushNamed(
+                                                          context,
+                                                          Routes.catDetails,
+                                                          arguments: e.category);
+                                                    },
+                                                    child: Text(
+                                                      e.name ?? '',
+                                                      style: poppins18W500()
+                                                          .copyWith(
+                                                              color: AppColors
+                                                                  .primary,
+                                                              fontSize: 15.sp),
+                                                    ),
+                                                  ))
+                                              .toList(),
+                                        )),
+                                  )
+                                ],
+                              ))
+                            ],
+                          ),
+                        )
+                ],
+              ),
+            );
     });
   }
 }

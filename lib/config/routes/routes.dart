@@ -1,5 +1,8 @@
 import 'package:e_commerce/core/utils/components.dart';
+import 'package:e_commerce/features/cat_details/domain/entities/CatDetailsEntity.dart';
+import 'package:e_commerce/features/cat_details/presentation/pages/cateDetails.dart';
 import 'package:e_commerce/features/home/presentation/pages/home.dart';
+import 'package:e_commerce/features/product_details/presentation/pages/product_details.dart';
 import 'package:e_commerce/features/sign_up/presentation/pages/sign_up.dart';
 import 'package:e_commerce/splash.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +17,8 @@ class Routes {
   static const String signUpRoute = 'signUp';
   static const String homeRoute = 'home';
   static const String splash = 'Splash';
+  static const String catDetails = 'CatDetails';
+  static const String proDetails = "ProDetails";
 }
 
 class AppRoutes {
@@ -32,11 +37,23 @@ class AppRoutes {
       case Routes.homeRoute:
         // var loginEntity =routeSettings.arguments as LoginEntity;
         return MaterialPageRoute(
-          builder: (context) => HomeScreen(),
+          builder: (context) => const HomeScreen(),
         );
       case Routes.splash:
         return MaterialPageRoute(
           builder: (context) => const SplashScreen(),
+        );
+      case Routes.catDetails:
+        String cat = routeSettings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) => CatDetails(cat),
+        );
+      case Routes.proDetails:
+        DataDetailsEntity entity = routeSettings.arguments as DataDetailsEntity;
+        return MaterialPageRoute(
+          builder: (context) => ProductDetails(
+            entity: entity,
+          ),
         );
       default:
         return MaterialPageRoute(

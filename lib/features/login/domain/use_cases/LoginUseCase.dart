@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce/core/error/failures.dart';
 import 'package:e_commerce/features/login/domain/entities/LoginEntity.dart';

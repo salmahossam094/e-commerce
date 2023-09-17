@@ -1,8 +1,10 @@
+import 'package:e_commerce/config/routes/routes.dart';
 import 'package:e_commerce/core/utils/app_colors.dart';
 import 'package:e_commerce/core/utils/app_images.dart';
 import 'package:e_commerce/core/utils/text_styles.dart';
 import 'package:e_commerce/features/home/presentation/manager/cubit.dart';
 import 'package:e_commerce/features/home/presentation/manager/states.dart';
+import 'package:e_commerce/features/home/presentation/widgets/search_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
@@ -22,47 +24,7 @@ class HomeTab extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 348.w,
-                      height: 50.h,
-                      child: TextField(
-                        decoration: InputDecoration(
-                            prefixIcon: const Icon(
-                              Icons.search_rounded,
-                              color: AppColors.primary,
-                              size: 35,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25.r),
-                                borderSide:
-                                    const BorderSide(color: AppColors.primary)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25.r),
-                                borderSide:
-                                    const BorderSide(color: AppColors.primary)),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25.r),
-                                borderSide:
-                                    const BorderSide(color: AppColors.primary)),
-                            hintText: 'what do you search for?',
-                            filled: true,
-                            hintStyle: poppins18W500().copyWith(
-                              color: AppColors.hintColor,
-                              fontWeight: FontWeight.w100,
-                            ),
-                            contentPadding: const EdgeInsets.only(top: 25)),
-                      ),
-                    ),
-                    const Spacer(),
-                    const Icon(
-                      Icons.shopping_cart_outlined,
-                      color: AppColors.primary,
-                    )
-                  ],
-                ),
+                const SearchWidget(),
                 SizedBox(
                   height: 16.h,
                 ),
@@ -93,34 +55,42 @@ class HomeTab extends StatelessWidget {
                           itemCount: HomeCubit.get(context).categories.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                SizedBox(
-                                  height: 100.h,
-                                  width: 100.w,
-                                  child: ClipOval(
-                                    child: Image.network(
-                                      HomeCubit.get(context)
-                                              .categories[index]
-                                              .image ??
-                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy0iQbDTKhlpXDKFfRjPGm2FsII2G8MoowXFGfbZfL&s',
-                                      fit: BoxFit.fill,
+                            return InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(context, Routes.catDetails,
+                                    arguments: HomeCubit.get(context)
+                                        .categories[index]
+                                        .id);
+                              },
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 100.h,
+                                    width: 100.w,
+                                    child: ClipOval(
+                                      child: Image.network(
+                                        HomeCubit.get(context)
+                                                .categories[index]
+                                                .image ??
+                                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy0iQbDTKhlpXDKFfRjPGm2FsII2G8MoowXFGfbZfL&s',
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 8.h,
-                                ),
-                                Text(
-                                  HomeCubit.get(context)
-                                          .categories[index]
-                                          .name ??
-                                      '',
-                                  style: poppins18W500().copyWith(
-                                      fontSize: 14.sp,
-                                      color: AppColors.primary),
-                                )
-                              ],
+                                  SizedBox(
+                                    height: 8.h,
+                                  ),
+                                  Text(
+                                    HomeCubit.get(context)
+                                            .categories[index]
+                                            .name ??
+                                        '',
+                                    style: poppins18W500().copyWith(
+                                        fontSize: 14.sp,
+                                        color: AppColors.primary),
+                                  )
+                                ],
+                              ),
                             );
                           },
                         ),
