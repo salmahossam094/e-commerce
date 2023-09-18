@@ -8,3 +8,7 @@ TextStyle poppins24W600() => GoogleFonts.poppins(
 
 TextStyle poppins18W500() => GoogleFonts.poppins(
     fontSize: 18.sp, color: AppColors.onPrimary, fontWeight: FontWeight.w500);
+TextStyle poppins14W400()=>  GoogleFonts.poppins(
+    fontWeight: FontWeight.w400,
+    fontSize: 14.sp,
+    color: const Color.fromRGBO(6, 0, 79, 0.6));

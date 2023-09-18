@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+   MyApp({required this.route,super.key});
+  String route;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (BuildContext context, Widget? child) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute:'home',
+        initialRoute:route,
         onGenerateRoute: (settings) => AppRoutes.onGenerate(settings),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:e_commerce/core/utils/cache_helper.dart';
 import 'package:e_commerce/core/utils/components.dart';
 import 'package:e_commerce/core/utils/text_styles.dart';
 import 'package:e_commerce/features/login/data/data_sources/remote_data_source.dart';
@@ -34,9 +35,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             );
-          }
-          else if (state is LoginErrorState)
-          {
+          } else if (state is LoginErrorState) {
             Navigator.pop(context);
             showDialog(
               context: context,
@@ -45,9 +44,9 @@ class LoginScreen extends StatelessWidget {
                 content: Text(state.failures.message),
               ),
             );
-          }
-          else if (state is LoginSuccessState) {
+          } else if (state is LoginSuccessState) {
             Navigator.pop(context);
+            CacheHelper.saveData(key: 'User', value: state.loginEntity.token);
             Navigator.pushNamedAndRemoveUntil(
               context,
               Routes.homeRoute,
@@ -117,7 +116,6 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(
                       height: 24.h,
                     ),
-
                     defaultFormField(
                       controller: LoginCubit.get(context).passwordController,
                       label: AppStrings.passHint,

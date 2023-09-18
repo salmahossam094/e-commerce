@@ -30,7 +30,7 @@ class HomeCubit extends Cubit<HomeStates> {
     const HomeTab(),
     const CategoryTab(),
     const FavouriteTab(),
-    const ProfileTab()
+     ProfileTab()
   ];
   var searchController = TextEditingController();
   List<DataEntity> categories = [];
