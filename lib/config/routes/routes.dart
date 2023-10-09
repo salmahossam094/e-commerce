@@ -1,4 +1,5 @@
 import 'package:e_commerce/core/utils/components.dart';
+import 'package:e_commerce/features/cart/presentation/pages/cart.dart';
 import 'package:e_commerce/features/cat_details/domain/entities/CatDetailsEntity.dart';
 import 'package:e_commerce/features/cat_details/presentation/pages/cateDetails.dart';
 import 'package:e_commerce/features/home/presentation/pages/home.dart';
@@ -19,6 +20,7 @@ class Routes {
   static const String splash = 'Splash';
   static const String catDetails = 'CatDetails';
   static const String proDetails = "ProDetails";
+  static const String cart = 'Cart';
 }
 
 class AppRoutes {
@@ -54,6 +56,10 @@ class AppRoutes {
           builder: (context) => ProductDetails(
             entity: entity,
           ),
+        );
+      case Routes.cart:
+        return MaterialPageRoute(
+          builder: (context) => CartPage(),
         );
       default:
         return MaterialPageRoute(

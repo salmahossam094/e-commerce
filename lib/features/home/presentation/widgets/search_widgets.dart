@@ -3,6 +3,8 @@ import 'package:e_commerce/core/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../config/routes/routes.dart';
+
 class SearchWidget extends StatelessWidget {
   const SearchWidget({super.key});
 
@@ -12,7 +14,7 @@ class SearchWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(
-          width: 348.w,
+          width: 342.w,
           height: 50.h,
           child: TextField(
             decoration: InputDecoration(
@@ -43,10 +45,15 @@ class SearchWidget extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        const Icon(
-          Icons.shopping_cart_outlined,
-          color: AppColors.primary,
-        )
+         IconButton(
+           onPressed: () {
+             Navigator.pushNamed(context, Routes.cart);
+           },
+           icon: const Icon(
+            Icons.shopping_cart_outlined,
+            color: AppColors.primary,
+        ),
+         )
       ],
     );
   }
