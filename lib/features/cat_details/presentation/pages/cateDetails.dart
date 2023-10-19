@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, file_names
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:e_commerce/core/utils/app_images.dart';
 import 'package:e_commerce/core/utils/text_styles.dart';
 import 'package:e_commerce/features/cat_details/data/data_sources/remote_cat_dto.dart';
@@ -47,6 +48,36 @@ class CatDetails extends StatelessWidget {
                 ),
               );
             }
+            if (state is AddToCartLoadingState) {
+              showDialog(
+                context: context,
+                builder: (context) => const AlertDialog(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0.0,
+                  title: Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.primary,
+                    ),
+                  ),
+                ),
+              );
+            } else if (state is AddToCartErrorState) {
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text("Error"),
+                  content: Text(state.failures.message),
+                ),
+              );
+            } else if (state is AddToCartSuccessState) {
+              Navigator.pop(context);
+              AwesomeDialog(
+                      context: context,
+                      title: 'Successful',
+                      dialogType: DialogType.success)
+                  .show();
+            }
           },
           builder: (context, state) {
             return Scaffold(
@@ -87,13 +118,13 @@ class CatDetails extends StatelessWidget {
                                       children: CatCubit.get(context)
                                           .catDet
                                           .map((e) => ProductWidget(
-                                              // price: e.price.toString(),
-                                              // name: e.title ?? "",
-                                              // image: e.imageCover ?? '',
-                                              // review:
-                                              //     e.ratingsAverage.toString(),
-                                        e: e,
-                                      ))
+                                                // price: e.price.toString(),
+                                                // name: e.title ?? "",
+                                                // image: e.imageCover ?? '',
+                                                // review:
+                                                //     e.ratingsAverage.toString(),
+                                                e: e,
+                                              ))
                                           .toList(),
                                     ),
                                   )

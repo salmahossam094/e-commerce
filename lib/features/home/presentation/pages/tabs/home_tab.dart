@@ -112,32 +112,40 @@ class HomeTab extends StatelessWidget {
                                   crossAxisCount: 2, crossAxisSpacing: 2),
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (BuildContext context, int index) {
-                            return Column(
-                              children: [
-                                SizedBox(
-                                  height: 100.h,
-                                  width: 100.w,
-                                  child: ClipOval(
-                                    child: Image.network(
-                                      HomeCubit.get(context)
-                                              .brands[index]
-                                              .image ??
-                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy0iQbDTKhlpXDKFfRjPGm2FsII2G8MoowXFGfbZfL&s',
-                                      fit: BoxFit.fill,
+                            return InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(context, Routes.catDetails,
+                                    arguments: HomeCubit.get(context)
+                                        .brands[index]
+                                        .id);
+                              },
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 100.h,
+                                    width: 100.w,
+                                    child: ClipOval(
+                                      child: Image.network(
+                                        HomeCubit.get(context)
+                                                .brands[index]
+                                                .image ??
+                                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy0iQbDTKhlpXDKFfRjPGm2FsII2G8MoowXFGfbZfL&s',
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 8.h,
-                                ),
-                                Text(
-                                  HomeCubit.get(context).brands[index].name ??
-                                      "",
-                                  style: poppins18W500().copyWith(
-                                      color: AppColors.primary,
-                                      fontSize: 14.sp),
-                                ),
-                              ],
+                                  SizedBox(
+                                    height: 8.h,
+                                  ),
+                                  Text(
+                                    HomeCubit.get(context).brands[index].name ??
+                                        "",
+                                    style: poppins18W500().copyWith(
+                                        color: AppColors.primary,
+                                        fontSize: 14.sp),
+                                  ),
+                                ],
+                              ),
                             );
                           },
                           itemCount: HomeCubit.get(context).brands.length,

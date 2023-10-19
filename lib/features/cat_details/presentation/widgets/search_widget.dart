@@ -14,7 +14,9 @@ class SearchWidget extends StatelessWidget {
     return BlocBuilder<ProdCubit, ProDetStates>(
       bloc: ProdCubit(RemotePro()),
       builder: (context, state) => Column(
-        children: [],
+        children: [
+
+        ],
       ),
     );
   }
