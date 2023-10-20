@@ -1,6 +1,9 @@
 import 'package:e_commerce/core/error/failures.dart';
 import 'package:e_commerce/features/home/domain/entities/CategoryOrBrandEntity.dart';
+import 'package:e_commerce/features/home/domain/entities/GetWishListResponse.dart';
 import 'package:e_commerce/features/home/domain/entities/SubCatEntity.dart';
+
+import '../../../product_details/domain/entities/AddCartResponse.dart';
 
 abstract class HomeStates {}
 
@@ -9,6 +12,7 @@ class HomeLoadingState extends HomeStates {}
 class ChangeNavBarState extends HomeStates {}
 
 class HomeInitState extends HomeStates {}
+
 class HomeChangeCatState extends HomeStates {}
 
 class HomeGetCategorySuccessState extends HomeStates {
@@ -22,6 +26,7 @@ class HomeGetCategoryErrorState extends HomeStates {
 
   HomeGetCategoryErrorState(this.failures);
 }
+
 class HomeGetBrandsSuccessState extends HomeStates {
   CategoryOrBrandEntity model;
 
@@ -33,6 +38,7 @@ class HomeGetBrandsErrorState extends HomeStates {
 
   HomeGetBrandsErrorState(this.failures);
 }
+
 class HomeGetSubCatSuccessState extends HomeStates {
   SubCatEntity model;
 
@@ -44,8 +50,32 @@ class HomeGetSubCatErrorState extends HomeStates {
 
   HomeGetSubCatErrorState(this.failures);
 }
-class HomeGetSubLoadingState extends HomeStates{
 
+class HomeGetSubLoadingState extends HomeStates {}
+
+class GetWishLoadingState extends HomeStates {}
+
+class GetWishSuccessState extends HomeStates {
+  GetWishListResponseEntity model;
+
+  GetWishSuccessState(this.model);
 }
 
+class GetWishErrorState extends HomeStates {
+  Failures failures;
 
+  GetWishErrorState(this.failures);
+}
+
+class AddToCartLoadingState extends HomeStates {}
+
+class AddToCartSuccessState extends HomeStates {
+  AddCartResponse addCartResponse;
+
+  AddToCartSuccessState(this.addCartResponse);
+}
+class AddToCartErrorState extends HomeStates {
+  Failures failures;
+
+  AddToCartErrorState(this.failures);
+}

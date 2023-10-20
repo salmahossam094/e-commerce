@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:e_commerce/core/utils/app_colors.dart';
 import 'package:e_commerce/core/utils/app_images.dart';
 import 'package:e_commerce/features/home/data/data_sources/remote_data_source.dart';
@@ -13,19 +14,21 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit(HomeTabRemoteDataSource())..getCategory()..getBrands(),
+      create: (context) => HomeCubit(HomeTabRemoteDataSource())
+        ..getCategory()
+        ..getBrands()
+        ..getWishList(),
       child: BlocConsumer<HomeCubit, HomeStates>(
         listener: (context, state) {
-          if (state is ChangeNavBarState) {}
-          if (state is HomeLoadingState) {
+          if (state is ChangeNavBarState) {
+          } else if (state is HomeLoadingState) {
             showDialog(
               context: context,
               builder: (context) => const AlertDialog(
                 title: Center(child: CircularProgressIndicator()),
               ),
             );
-          }
-          if (state is HomeGetCategoryErrorState) {
+          } else if (state is HomeGetCategoryErrorState) {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
@@ -33,11 +36,37 @@ class HomeScreen extends StatelessWidget {
                 content: Text(state.failures.message),
               ),
             );
+          } else if (state is AddToCartLoadingState) {
+            showDialog(
+              context: context,
+              builder: (context) => const AlertDialog(
+                title: Center(child: CircularProgressIndicator()),
+              ),
+            );
+          } else if (state is AddToCartSuccessState) {
+            Navigator.pop(context);
+            AwesomeDialog(
+                    context: context,
+                autoHide: Duration(seconds: 3),
+                    dialogType: DialogType.success,
+                    title: "Add To Cart Successfully",
+
+            )
+                .show();
+          }
+
+          else if(state is AddToCartErrorState){
+            Navigator.pop(context);
+            AwesomeDialog(
+                context: context,
+                autoHide: Duration(seconds: 3),
+                dialogType: DialogType.error,
+                title: "Error",desc: state.failures.message)
+                .show();
           }
         },
         builder: (context, state) {
           return Scaffold(
-
             appBar: AppBar(
               title: Image.asset(AppImages.appBarLogo),
               backgroundColor: Colors.transparent,

@@ -3,6 +3,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:e_commerce/config/routes/routes.dart';
 import 'package:e_commerce/features/cat_details/domain/entities/CatDetailsEntity.dart';
+import 'package:e_commerce/features/home/presentation/manager/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,6 +35,9 @@ class ProductWidget extends StatelessWidget {
         Navigator.pushNamed(context, Routes.proDetails, arguments: e);
       },
       child: BlocConsumer<CatCubit, CatDetailsStates>(
+        listener: (context, state) {
+
+        },
         builder: (context, state) => Column(
           children: [
             Card(
@@ -59,11 +63,10 @@ class ProductWidget extends StatelessWidget {
                           InkWell(
                             onTap: () {
                               CatCubit.get(context).addToWishList(e.sid ?? '');
+
                             },
-                            child: const Icon(
-                              Icons.favorite_border,
-                              color: AppColors.primary,
-                            ),
+                            child:
+                           Icon(Icons.favorite_border,color: AppColors.primary,),
                           ),
                         ],
                       ),
@@ -121,38 +124,7 @@ class ProductWidget extends StatelessWidget {
             )
           ],
         ),
-        listener: (context, state) {
-          if (state is AddToCartLoadingState) {
-            showDialog(
-              context: context,
-              builder: (context) => const AlertDialog(
-                backgroundColor: Colors.transparent,
-                elevation: 0.0,
-                title: Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.primary,
-                  ),
-                ),
-              ),
-            );
-          } else if (state is AddToCartErrorState) {
-            Navigator.pop(context);
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                title: const Text("Error"),
-                content: Text(state.failures.message),
-              ),
-            );
-          } else if (state is AddToCartSuccessState) {
-            Navigator.pop(context);
-            AwesomeDialog(
-                    context: context,
-                    title: 'Successful',
-                    dialogType: DialogType.success)
-                .show();
-          }
-        },
+
       ),
     );
   }

@@ -14,6 +14,7 @@ class CatCubit extends Cubit<CatDetailsStates> {
   }
 
   List<DataDetailsEntity> catDet = [];
+  bool fav=false;
 
   static CatCubit get(context) => BlocProvider.of(context);
   CatDetailsDto catDetailsDto;
@@ -21,7 +22,7 @@ class CatCubit extends Cubit<CatDetailsStates> {
   late CatDetailsUseCase catDetailsUseCase;
 
   late AddCartResponse cartResponse;
-  late WishListResponse wishListResponse;
+   WishListResponse wishListResponse=WishListResponse(statusMsg: 'error',status: '');
 
   getCatDetails(String catId) async {
     emit(CatLoadingState());

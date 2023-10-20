@@ -77,6 +77,37 @@ class CatDetails extends StatelessWidget {
                       title: 'Successful',
                       dialogType: DialogType.success)
                   .show();
+            }else  if (state is AddToWishLoadingState) {
+              showDialog(
+                context: context,
+                builder: (context) => const AlertDialog(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0.0,
+                  title: Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.primary,
+                    ),
+                  ),
+                ),
+              );
+            } else if (state is AddToWishErrorState) {
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text("Error"),
+                  content: Text(state.failures.message),
+                ),
+              );
+            } else if (state is AddToWishSuccessState) {
+              Navigator.pop(context);
+
+              AwesomeDialog(
+                  context: context,
+                  title: 'Successful',
+                  autoHide: Duration(seconds: 4),
+                  dialogType: DialogType.success)
+                  .show();
             }
           },
           builder: (context, state) {

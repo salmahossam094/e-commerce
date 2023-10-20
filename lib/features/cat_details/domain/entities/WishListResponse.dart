@@ -4,16 +4,20 @@
 
 class WishListResponse {
   WishListResponse({
-      this.status, 
-      this.message, 
-      this.data,});
+    this.status,
+    this.message,
+    this.statusMsg,
+    this.data,
+  });
 
   WishListResponse.fromJson(dynamic json) {
     status = json['status'];
     message = json['message'];
     data = json['data'] != null ? json['data'].cast<String>() : [];
   }
+
   String? status;
+  String? statusMsg;
   String? message;
   List<String>? data;
 
@@ -24,5 +28,4 @@ class WishListResponse {
     map['data'] = data;
     return map;
   }
-
 }
