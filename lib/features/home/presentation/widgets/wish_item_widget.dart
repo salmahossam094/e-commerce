@@ -20,36 +20,39 @@ class WishItemWidget extends StatelessWidget {
       child: Row(
         children: [
           Image.network(
-            wishlist.imageCover ?? '',
+            wishlist.imageCover ??
+                'https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png',
             width: 120.w,
             height: 113.h,
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                wishlist.title ?? '',
-                style: poppins18W500().copyWith(color: AppColors.primary),
-              ),
-              SizedBox(
-                height: 40.h,
-              ),
-              Text(
-                'EGP ${wishlist.price.toString()} ',
-                style: poppins18W500().copyWith(color: AppColors.primary),
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  wishlist.title ?? '',
+                  style: poppins18W500().copyWith(color: AppColors.primary),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(
+                  height: 40.h,
+                ),
+                Text(
+                  'EGP ${wishlist.price.toString()} ',
+                  style: poppins18W500().copyWith(color: AppColors.primary),
+                ),
+              ],
+            ),
           ),
           Spacer(),
           Column(
             children: [
               InkWell(
                 onTap: () {
-
+                  HomeCubit.get(context).deleteWish(wishlist.id ?? '');
                 },
-                child: Icon(
-                 HomeCubit.get(context).isFav==false? Icons.favorite_border:Icons.favorite,
+                child: const Icon(
+                  Icons.favorite,
                   color: AppColors.primary,
                 ),
               ),
@@ -67,7 +70,7 @@ class WishItemWidget extends StatelessWidget {
                     onTap: () {
                       HomeCubit.get(context).addToCart(wishlist.id ?? '');
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.add,
                       color: AppColors.primary,
                     )),

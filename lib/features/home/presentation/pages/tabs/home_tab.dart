@@ -72,8 +72,7 @@ class HomeTab extends StatelessWidget {
                                         HomeCubit.get(context)
                                                 .categories[index]
                                                 .image ??
-                                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy0iQbDTKhlpXDKFfRjPGm2FsII2G8MoowXFGfbZfL&s',
-                                        fit: BoxFit.fill,
+"https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png",                                        fit: BoxFit.fill,
                                       ),
                                     ),
                                   ),
@@ -129,7 +128,7 @@ class HomeTab extends StatelessWidget {
                                         HomeCubit.get(context)
                                                 .brands[index]
                                                 .image ??
-                                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy0iQbDTKhlpXDKFfRjPGm2FsII2G8MoowXFGfbZfL&s',
+                                           "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png",
                                         fit: BoxFit.fill,
                                       ),
                                     ),

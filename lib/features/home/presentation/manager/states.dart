@@ -1,4 +1,5 @@
 import 'package:e_commerce/core/error/failures.dart';
+import 'package:e_commerce/features/cat_details/domain/entities/WishListResponse.dart';
 import 'package:e_commerce/features/home/domain/entities/CategoryOrBrandEntity.dart';
 import 'package:e_commerce/features/home/domain/entities/GetWishListResponse.dart';
 import 'package:e_commerce/features/home/domain/entities/SubCatEntity.dart';
@@ -67,6 +68,20 @@ class GetWishErrorState extends HomeStates {
   GetWishErrorState(this.failures);
 }
 
+class DeleteWishLoadingState extends HomeStates {}
+
+class DeleteWishSuccessState extends HomeStates {
+  WishListResponse model;
+
+  DeleteWishSuccessState(this.model);
+}
+
+class DeleteWishErrorState extends HomeStates {
+  Failures failures;
+
+  DeleteWishErrorState(this.failures);
+}
+
 class AddToCartLoadingState extends HomeStates {}
 
 class AddToCartSuccessState extends HomeStates {
@@ -74,6 +89,7 @@ class AddToCartSuccessState extends HomeStates {
 
   AddToCartSuccessState(this.addCartResponse);
 }
+
 class AddToCartErrorState extends HomeStates {
   Failures failures;
 

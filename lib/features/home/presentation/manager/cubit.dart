@@ -121,4 +121,16 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(AddToCartSuccessState(r));
     });
   }
+
+  deleteWish(String proId) async {
+    emit(DeleteWishLoadingState());
+    WishListUseCase wishListUseCase = WishListUseCase(homeTabDomainRepo);
+    var result = await wishListUseCase.deleteWish(proId);
+    result.fold((l) {
+      emit(DeleteWishErrorState(l));
+    }, (r) {
+      isFav=false;
+      emit(DeleteWishSuccessState(r));
+    });
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce/core/error/failures.dart';
+import 'package:e_commerce/features/cat_details/domain/entities/WishListResponse.dart';
 import 'package:e_commerce/features/home/data/data_sources/home_tab_data_source.dart';
 import 'package:e_commerce/features/home/domain/entities/CategoryOrBrandEntity.dart';
 import 'package:e_commerce/features/home/domain/entities/GetWishListResponse.dart';
@@ -31,4 +32,8 @@ class HomeTabDataRepo implements HomeTabDomainRepo {
 
   Future<Either<Failures, AddCartResponse>> addToCart(String id) =>
       homeTabDataSource.addToCart(id);
+
+  @override
+  Future<Either<Failures, WishListResponse>> deleteWish(String proId) =>
+      homeTabDataSource.deleteWish(proId);
 }

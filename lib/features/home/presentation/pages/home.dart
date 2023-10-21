@@ -25,6 +25,8 @@ class HomeScreen extends StatelessWidget {
             showDialog(
               context: context,
               builder: (context) => const AlertDialog(
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
                 title: Center(child: CircularProgressIndicator()),
               ),
             );
@@ -40,29 +42,57 @@ class HomeScreen extends StatelessWidget {
             showDialog(
               context: context,
               builder: (context) => const AlertDialog(
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
                 title: Center(child: CircularProgressIndicator()),
               ),
             );
           } else if (state is AddToCartSuccessState) {
             Navigator.pop(context);
             AwesomeDialog(
-                    context: context,
-                autoHide: Duration(seconds: 3),
-                    dialogType: DialogType.success,
-                    title: "Add To Cart Successfully",
-
-            )
-                .show();
-          }
-
-          else if(state is AddToCartErrorState){
+              context: context,
+              autoHide: Duration(seconds: 3),
+              dialogType: DialogType.success,
+              title: "Add To Cart Successfully",
+            ).show();
+          } else if (state is AddToCartErrorState) {
             Navigator.pop(context);
             AwesomeDialog(
-                context: context,
-                autoHide: Duration(seconds: 3),
-                dialogType: DialogType.error,
-                title: "Error",desc: state.failures.message)
+                    context: context,
+                    autoHide: Duration(seconds: 3),
+                    dialogType: DialogType.error,
+                    title: "Error",
+                    desc: state.failures.message)
                 .show();
+          } else if (state is DeleteWishLoadingState) {
+            showDialog(
+              context: context,
+              builder: (context) => const AlertDialog(
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
+                title: Center(
+                    child: CircularProgressIndicator(
+                  color: AppColors.primary,
+                  backgroundColor: Colors.transparent,
+                )),
+              ),
+            );
+          } else if (state is DeleteWishSuccessState) {
+            Navigator.pop(context);
+            AwesomeDialog(
+              context: context,
+              autoHide: Duration(seconds: 3),
+              dialogType: DialogType.success,
+              title: "Deleted from wishlist Successfully",
+            ).show();
+          } else if (state is DeleteWishErrorState) {
+            Navigator.pop(context);
+            AwesomeDialog(
+              context: context,
+              autoHide: Duration(seconds: 3),
+              dialogType: DialogType.error,
+              title: "Error",
+            ).show();
           }
         },
         builder: (context, state) {
