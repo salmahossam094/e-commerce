@@ -1,4 +1,5 @@
-// ignore_for_file: must_be_immutable
+// ignore: duplicate_ignore
+// ignore_for_file: must_be_immutable, duplicate_ignore, file_names
 
 import 'package:equatable/equatable.dart';
 

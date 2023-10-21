@@ -25,7 +25,6 @@ class ProdCubit extends Cubit<ProDetStates> {
     emit(AddToCartLoadingState());
     ProDomainRepo proDomainRepo = ProDataRepo(dto);
     ProUseCase proUseCase = ProUseCase(proDomainRepo);
-    print(proId);
     var results = await proUseCase.call(proId);
     results.fold((l) {
       emit(AddToCartErrorState(l));

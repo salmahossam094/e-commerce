@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
             Navigator.pop(context);
             AwesomeDialog(
               context: context,
-              autoHide: Duration(seconds: 3),
+              autoHide: const Duration(seconds: 3),
               dialogType: DialogType.success,
               title: "Add To Cart Successfully",
             ).show();
@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
             Navigator.pop(context);
             AwesomeDialog(
                     context: context,
-                    autoHide: Duration(seconds: 3),
+                    autoHide: const Duration(seconds: 3),
                     dialogType: DialogType.error,
                     title: "Error",
                     desc: state.failures.message)
@@ -81,7 +81,7 @@ class HomeScreen extends StatelessWidget {
             Navigator.pop(context);
             AwesomeDialog(
               context: context,
-              autoHide: Duration(seconds: 3),
+              autoHide: const Duration(seconds: 3),
               dialogType: DialogType.success,
               title: "Deleted from wishlist Successfully",
             ).show();
@@ -89,7 +89,7 @@ class HomeScreen extends StatelessWidget {
             Navigator.pop(context);
             AwesomeDialog(
               context: context,
-              autoHide: Duration(seconds: 3),
+              autoHide: const Duration(seconds: 3),
               dialogType: DialogType.error,
               title: "Error",
             ).show();

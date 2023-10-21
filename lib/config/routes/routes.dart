@@ -59,7 +59,7 @@ class AppRoutes {
         );
       case Routes.cart:
         return MaterialPageRoute(
-          builder: (context) => CartPage(),
+          builder: (context) => const CartPage(),
         );
       default:
         return MaterialPageRoute(

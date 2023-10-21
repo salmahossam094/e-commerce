@@ -1,9 +1,7 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:e_commerce/config/routes/routes.dart';
 import 'package:e_commerce/features/cat_details/domain/entities/CatDetailsEntity.dart';
-import 'package:e_commerce/features/home/presentation/manager/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,9 +33,7 @@ class ProductWidget extends StatelessWidget {
         Navigator.pushNamed(context, Routes.proDetails, arguments: e);
       },
       child: BlocConsumer<CatCubit, CatDetailsStates>(
-        listener: (context, state) {
-
-        },
+        listener: (context, state) {},
         builder: (context, state) => Column(
           children: [
             Card(
@@ -63,10 +59,11 @@ class ProductWidget extends StatelessWidget {
                           InkWell(
                             onTap: () {
                               CatCubit.get(context).addToWishList(e.sid ?? '');
-
                             },
-                            child:
-                           Icon(Icons.favorite_border,color: AppColors.primary,),
+                            child: const Icon(
+                              Icons.favorite_border,
+                              color: AppColors.primary,
+                            ),
                           ),
                         ],
                       ),
@@ -124,7 +121,6 @@ class ProductWidget extends StatelessWidget {
             )
           ],
         ),
-
       ),
     );
   }

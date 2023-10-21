@@ -30,6 +30,7 @@ class HomeTabDataRepo implements HomeTabDomainRepo {
   Future<Either<Failures, GetWishListResponseEntity>> getWish() =>
       homeTabDataSource.getWish();
 
+  @override
   Future<Either<Failures, AddCartResponse>> addToCart(String id) =>
       homeTabDataSource.addToCart(id);
 

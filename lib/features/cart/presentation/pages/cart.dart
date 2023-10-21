@@ -36,14 +36,6 @@ class CartPage extends StatelessWidget {
                     autoHide: const Duration(seconds: 3),
                     dialogType: DialogType.success)
                 .show();
-          } else if (state is GetCartErrorState) {
-            AwesomeDialog(
-                    context: context,
-                    animType: AnimType.rightSlide,
-                    title: 'Error',
-                    desc: state.failures.message,
-                    dialogType: DialogType.error)
-                .show();
           } else if (state is DeleteCartSuccessState) {
             Navigator.pop(context);
             AwesomeDialog(
@@ -95,10 +87,17 @@ class CartPage extends StatelessWidget {
                       Expanded(
                         child:
                             CartCubit.get(context)
-                                        .cartResponse
-                                        .numOfCartItems !=
-                                    0
-                                ? ListView.builder(
+                                            .cartResponse
+                                            .numOfCartItems ==
+                                        0 ||
+                                    state is GetCartErrorState
+                                ? Center(
+                                    child: Text(
+                                    'Your cart is empty',
+                                    style: poppins24W600()
+                                        .copyWith(color: AppColors.primary),
+                                  ))
+                                : ListView.builder(
                                     itemBuilder: (context, index) => Column(
                                       children: [
                                         Container(
@@ -193,15 +192,15 @@ class CartPage extends StatelessWidget {
                                                                 ))
                                                           ],
                                                         ),
-                                                        Spacer(),
+                                                        const Spacer(),
                                                         Row(
                                                           children: [
                                                             Text(
                                                               CartCubit.get(
                                                                           context)
                                                                       .cartResponse
-                                                                      .data!
-                                                                      .products?[
+                                                                      .data
+                                                                      ?.products?[
                                                                           index]
                                                                       .price
                                                                       .toString() ??
@@ -211,7 +210,7 @@ class CartPage extends StatelessWidget {
                                                                       color: AppColors
                                                                           .primary),
                                                             ),
-                                                            Spacer(),
+                                                            const Spacer(),
                                                             Expanded(
                                                               child: Container(
                                                                 padding: EdgeInsets
@@ -244,11 +243,6 @@ class CartPage extends StatelessWidget {
                                                                             .toString());
                                                                         if (CartCubit.get(context).proCount <=
                                                                             1) {
-                                                                          print(CartCubit.get(context)
-                                                                              .cartResponse
-                                                                              .data!
-                                                                              .products![index]
-                                                                              .count);
                                                                           CartCubit.get(context).deleteItem(CartCubit.get(context)
                                                                               .cartResponse
                                                                               .data!
@@ -359,13 +353,7 @@ class CartPage extends StatelessWidget {
                                         .data
                                         ?.products
                                         ?.length,
-                                  )
-                                : Center(
-                                    child: Text(
-                                    'Your cart is empty',
-                                    style: poppins24W600()
-                                        .copyWith(color: AppColors.primary),
-                                  )),
+                                  ),
                       )
                     ],
                   ),

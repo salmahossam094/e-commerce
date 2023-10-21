@@ -1,3 +1,4 @@
+import 'package:e_commerce/core/utils/cache_helper.dart';
 import 'package:e_commerce/features/home/data/repositories/home_tab_data_repo.dart';
 import 'package:e_commerce/features/home/domain/entities/CategoryOrBrandEntity.dart';
 import 'package:e_commerce/features/home/domain/entities/GetWishListResponse.dart';
@@ -33,7 +34,7 @@ class HomeCubit extends Cubit<HomeStates> {
     const HomeTab(),
     const CategoryTab(),
     const FavouriteTab(),
-    ProfileTab()
+    const ProfileTab()
   ];
   bool isFav = true;
 
@@ -43,6 +44,9 @@ class HomeCubit extends Cubit<HomeStates> {
   List<SubDataEntity> subCat = [];
   int selectedValue = 0;
   List<DataWishEntity> wishList = [];
+  String userName = CacheHelper.getData('UserName');
+
+  String email = CacheHelper.getData('Email');
 
   void changeNav(int value) {
     emit(HomeInitState());
@@ -101,12 +105,12 @@ class HomeCubit extends Cubit<HomeStates> {
     WishListUseCase wishListUseCase = WishListUseCase(homeTabDomainRepo);
     var result = await wishListUseCase.call();
     result.fold((l) {
-      print(l.message);
+
       emit(GetWishErrorState(l));
     }, (r) {
       r1 = r;
       wishList = r.data ?? [];
-      print(r.count);
+
       emit(GetWishSuccessState(r));
     });
   }
@@ -129,7 +133,7 @@ class HomeCubit extends Cubit<HomeStates> {
     result.fold((l) {
       emit(DeleteWishErrorState(l));
     }, (r) {
-      isFav=false;
+      isFav = false;
       emit(DeleteWishSuccessState(r));
     });
   }

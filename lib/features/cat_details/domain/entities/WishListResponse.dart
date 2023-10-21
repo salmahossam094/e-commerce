@@ -2,6 +2,8 @@
 /// message : "Product added successfully to your wishlist"
 /// data : ["6428ead5dc1175abc65ca0ad"]
 
+// ignore_for_file: file_names
+
 class WishListResponse {
   WishListResponse({
     this.status,

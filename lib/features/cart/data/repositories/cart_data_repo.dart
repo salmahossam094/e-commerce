@@ -14,5 +14,6 @@ class CartDataRepo implements CartDomainRepo {
 
   @override
   Future<Either<Failures, CartResponse>> deleteItem(String itemId) => cartDTO.deleteItem(itemId);
+  @override
   Future<Either<Failures,CartResponse>> updateQuantity(String itemId,int count)=> cartDTO.updateQuantity(itemId,count);
 }

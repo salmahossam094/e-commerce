@@ -4,6 +4,7 @@ import 'package:e_commerce/features/product_details/presentation/manager/states.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// ignore: must_be_immutable
 class SearchWidget extends StatelessWidget {
   String query;
 
@@ -13,7 +14,7 @@ class SearchWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProdCubit, ProDetStates>(
       bloc: ProdCubit(RemotePro()),
-      builder: (context, state) => Column(
+      builder: (context, state) => const Column(
         children: [
 
         ],

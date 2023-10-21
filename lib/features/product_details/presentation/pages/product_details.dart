@@ -43,7 +43,7 @@ class ProductDetails extends StatelessWidget {
             AwesomeDialog(
               context: context,
               dialogType: DialogType.error,
-              autoHide: Duration(seconds: 3),
+              autoHide: const Duration(seconds: 3),
               title: 'Error',
               desc: state.failures.message,
             ).show();
@@ -61,7 +61,7 @@ class ProductDetails extends StatelessWidget {
             AwesomeDialog(
                     context: context,
                     dialogType: DialogType.error,
-                    autoHide: Duration(seconds: 3),
+                    autoHide: const Duration(seconds: 3),
                     title: 'Error',
                     desc: 'Please add product to cart')
                 .show();
@@ -260,7 +260,8 @@ class ProductDetails extends StatelessWidget {
                                     AwesomeDialog(
                                             context: context,
                                             dialogType: DialogType.error,
-                                            autoHide: Duration(seconds: 3),
+                                            autoHide:
+                                                const Duration(seconds: 3),
                                             title: 'Error',
                                             desc: 'Please add product to cart')
                                         .show();

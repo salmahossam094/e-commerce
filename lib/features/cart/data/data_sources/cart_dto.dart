@@ -17,16 +17,13 @@ abstract class CartDTO {
 
 class RemoteCart implements CartDTO {
   Dio dio = Dio();
-  var token = CacheHelper.getData("Users");
+  var token = CacheHelper.getData("User");
 
   @override
   Future<Either<Failures, CartResponse>> getCart() async {
     try {
       var response = await dio.get('${Constants.baseApiUrl}${EndPoints.cart}',
-          options: Options(headers: {
-            "token":
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTg5MGYyZjVjMGI5MDAzNGU5ZTc3MCIsIm5hbWUiOiJoYW1vdWRhIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2OTQ5ODYzNzgsImV4cCI6MTcwMjc2MjM3OH0.0KUXU3uBJM5g53tPG66UXjNdTpwoWBkMQA9zhNo7wGs'
-          }));
+          options: Options(headers: {"token": token}));
       CartResponse cartResponse = CartResponse.fromJson(response.data);
       return Right(cartResponse);
     } catch (e) {
@@ -37,12 +34,9 @@ class RemoteCart implements CartDTO {
   @override
   Future<Either<Failures, CartResponse>> deleteItem(String itemId) async {
     try {
-      var response =
-          await dio.delete('${Constants.baseApiUrl}${EndPoints.cart}/$itemId',
-              options: Options(headers: {
-                "token":
-                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTg5MGYyZjVjMGI5MDAzNGU5ZTc3MCIsIm5hbWUiOiJoYW1vdWRhIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2OTQ5ODYzNzgsImV4cCI6MTcwMjc2MjM3OH0.0KUXU3uBJM5g53tPG66UXjNdTpwoWBkMQA9zhNo7wGs'
-              }));
+      var response = await dio.delete(
+          '${Constants.baseApiUrl}${EndPoints.cart}/$itemId',
+          options: Options(headers: {"token": token}));
       CartResponse cartResponse = CartResponse.fromJson(response.data);
       return Right(cartResponse);
     } catch (e) {
@@ -55,15 +49,9 @@ class RemoteCart implements CartDTO {
       String itemId, int count) async {
     try {
       var response = await dio.put(
-        '${Constants.baseApiUrl}${EndPoints.cart}/$itemId',
-        options: Options(headers: {
-          "token":
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTg5MGYyZjVjMGI5MDAzNGU5ZTc3MCIsIm5hbWUiOiJoYW1vdWRhIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2OTQ5ODYzNzgsImV4cCI6MTcwMjc2MjM3OH0.0KUXU3uBJM5g53tPG66UXjNdTpwoWBkMQA9zhNo7wGs'
-        }),
-        data: {
-          'count': count
-        }
-      );
+          '${Constants.baseApiUrl}${EndPoints.cart}/$itemId',
+          options: Options(headers: {"token": token}),
+          data: {'count': count});
       CartResponse cartResponse = CartResponse.fromJson(response.data);
       return Right(cartResponse);
     } catch (e) {

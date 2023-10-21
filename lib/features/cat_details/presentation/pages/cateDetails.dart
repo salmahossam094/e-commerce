@@ -105,7 +105,7 @@ class CatDetails extends StatelessWidget {
               AwesomeDialog(
                   context: context,
                   title: 'Successful',
-                  autoHide: Duration(seconds: 4),
+                  autoHide: const Duration(seconds: 4),
                   dialogType: DialogType.success)
                   .show();
             }

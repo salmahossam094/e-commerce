@@ -2,6 +2,7 @@ import 'package:e_commerce/features/login/data/repositories/login_data_repo.dart
 import 'package:e_commerce/features/login/domain/repositories/login_domain_repo.dart';
 import 'package:e_commerce/features/login/domain/use_cases/LoginUseCase.dart';
 import 'package:e_commerce/features/login/presentation/manager/states.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,6 +24,10 @@ class LoginCubit extends Cubit<LoginStates> {
     var results =
         await loginUseCase.call(emailController.text, passwordController.text);
     results.fold((l) {
+
+      if (kDebugMode) {
+        print(l.message);
+      }
       emit(LoginErrorState(l));
     }, (r) {
       emit(LoginSuccessState(r));

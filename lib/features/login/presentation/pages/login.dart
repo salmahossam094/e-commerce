@@ -6,7 +6,6 @@ import 'package:e_commerce/features/login/presentation/manager/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../config/routes/routes.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_images.dart';
@@ -47,6 +46,8 @@ class LoginScreen extends StatelessWidget {
           } else if (state is LoginSuccessState) {
             Navigator.pop(context);
             CacheHelper.saveData(key: 'User', value: state.loginEntity.token);
+            CacheHelper.saveData(key: 'UserName', value: state.loginEntity.user!.name);
+            CacheHelper.saveData(key: 'Email', value: state.loginEntity.user!.email);
             Navigator.pushNamedAndRemoveUntil(
               context,
               Routes.homeRoute,
