@@ -134,7 +134,9 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(DeleteWishErrorState(l));
     }, (r) {
       isFav = false;
+
       emit(DeleteWishSuccessState(r));
+      getWishList();
     });
   }
 }

@@ -74,6 +74,7 @@ class SignUpScreen extends StatelessWidget {
                   height: 24.h,
                 ),
                 defaultFormField(
+                  inputAction: TextInputAction.next,
                     controller: SignUpCubit.get(context).nameController,
                     label: AppStrings.fullNameHint,
                     isPass: false,
@@ -91,6 +92,7 @@ class SignUpScreen extends StatelessWidget {
                   height: 24.h,
                 ),
                 defaultFormField(
+                  inputAction: TextInputAction.next,
                     controller: SignUpCubit.get(context).phoneController,
                     label: AppStrings.mobileHint,
                     isPass: false,
@@ -108,6 +110,7 @@ class SignUpScreen extends StatelessWidget {
                   height: 24.h,
                 ),
                 defaultFormField(
+                  inputAction: TextInputAction.next,
                     controller: SignUpCubit.get(context).emailController,
                     label: AppStrings.emailHint,
                     isPass: false,
@@ -131,6 +134,7 @@ class SignUpScreen extends StatelessWidget {
                   height: 24.h,
                 ),
                 defaultFormField(
+                  inputAction: TextInputAction.done,
                     controller: SignUpCubit.get(context).passwordController,
                     label: AppStrings.passHint,
                     isPass: true,

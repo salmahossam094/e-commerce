@@ -1,4 +1,3 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:e_commerce/core/utils/app_colors.dart';
 import 'package:e_commerce/core/utils/app_images.dart';
 import 'package:e_commerce/features/home/data/data_sources/remote_data_source.dart';
@@ -16,8 +15,7 @@ class HomeScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomeCubit(HomeTabRemoteDataSource())
         ..getCategory()
-        ..getBrands()
-        ..getWishList(),
+        ..getBrands(),
       child: BlocConsumer<HomeCubit, HomeStates>(
         listener: (context, state) {
           if (state is ChangeNavBarState) {
@@ -27,7 +25,10 @@ class HomeScreen extends StatelessWidget {
               builder: (context) => const AlertDialog(
                 backgroundColor: Colors.transparent,
                 elevation: 0.0,
-                title: Center(child: CircularProgressIndicator()),
+                title: Center(
+                    child: CircularProgressIndicator(
+                  color: AppColors.primary,
+                )),
               ),
             );
           } else if (state is HomeGetCategoryErrorState) {
@@ -38,33 +39,7 @@ class HomeScreen extends StatelessWidget {
                 content: Text(state.failures.message),
               ),
             );
-          } else if (state is AddToCartLoadingState) {
-            showDialog(
-              context: context,
-              builder: (context) => const AlertDialog(
-                backgroundColor: Colors.transparent,
-                elevation: 0.0,
-                title: Center(child: CircularProgressIndicator()),
-              ),
-            );
-          } else if (state is AddToCartSuccessState) {
-            Navigator.pop(context);
-            AwesomeDialog(
-              context: context,
-              autoHide: const Duration(seconds: 3),
-              dialogType: DialogType.success,
-              title: "Add To Cart Successfully",
-            ).show();
-          } else if (state is AddToCartErrorState) {
-            Navigator.pop(context);
-            AwesomeDialog(
-                    context: context,
-                    autoHide: const Duration(seconds: 3),
-                    dialogType: DialogType.error,
-                    title: "Error",
-                    desc: state.failures.message)
-                .show();
-          } else if (state is DeleteWishLoadingState) {
+          } else if (state is GetWishLoadingState) {
             showDialog(
               context: context,
               builder: (context) => const AlertDialog(
@@ -73,26 +48,12 @@ class HomeScreen extends StatelessWidget {
                 title: Center(
                     child: CircularProgressIndicator(
                   color: AppColors.primary,
-                  backgroundColor: Colors.transparent,
                 )),
               ),
             );
-          } else if (state is DeleteWishSuccessState) {
+          }
+          if (state is GetWishSuccessState) {
             Navigator.pop(context);
-            AwesomeDialog(
-              context: context,
-              autoHide: const Duration(seconds: 3),
-              dialogType: DialogType.success,
-              title: "Deleted from wishlist Successfully",
-            ).show();
-          } else if (state is DeleteWishErrorState) {
-            Navigator.pop(context);
-            AwesomeDialog(
-              context: context,
-              autoHide: const Duration(seconds: 3),
-              dialogType: DialogType.error,
-              title: "Error",
-            ).show();
           }
         },
         builder: (context, state) {
@@ -115,6 +76,9 @@ class HomeScreen extends StatelessWidget {
                   unselectedItemColor: Colors.white,
                   onTap: (value) {
                     HomeCubit.get(context).changeNav(value);
+                    if (value == 2) {
+                      HomeCubit.get(context).getWishList();
+                    }
                   },
                   items: [
                     BottomNavigationBarItem(

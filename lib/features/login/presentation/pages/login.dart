@@ -101,6 +101,7 @@ class LoginScreen extends StatelessWidget {
                       height: 24.h,
                     ),
                     defaultFormField(
+                      inputAction: TextInputAction.next,
                         controller: LoginCubit.get(context).emailController,
                         label: AppStrings.emailHint,
                         isPass: false,
@@ -118,6 +119,7 @@ class LoginScreen extends StatelessWidget {
                       height: 24.h,
                     ),
                     defaultFormField(
+                      inputAction: TextInputAction.done,
                       controller: LoginCubit.get(context).passwordController,
                       label: AppStrings.passHint,
                       isPass: true,

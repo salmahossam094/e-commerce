@@ -14,8 +14,10 @@ Widget defaultFormField(
         required String label,
          bool isPass=false,
         required Function validate,
+          required TextInputAction inputAction,
        }) =>
     TextFormField(
+       textInputAction: inputAction ,
       controller: controller,
       obscureText: isPass,
       validator: (value) {
@@ -36,6 +38,7 @@ Widget defaultFormField(
           filled: true,
           fillColor: Colors.white,
           hintText: label,
+
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(color: Colors.transparent))),
