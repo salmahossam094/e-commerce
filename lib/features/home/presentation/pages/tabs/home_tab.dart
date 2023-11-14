@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/config/routes/routes.dart';
 import 'package:e_commerce/core/utils/app_colors.dart';
 import 'package:e_commerce/core/utils/app_images.dart';
@@ -68,13 +69,16 @@ class HomeTab extends StatelessWidget {
                                     height: 100.h,
                                     width: 100.w,
                                     child: ClipOval(
-                                      child: Image.network(
-                                        HomeCubit.get(context)
-                                                .categories[index]
-                                                .image ??
-"https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png",                                        fit: BoxFit.fill,
+                                      child:CachedNetworkImage(
+                                        imageUrl: HomeCubit.get(context)
+                                            .categories[index]
+                                            .image?? "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png",
+                                        progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                            CircularProgressIndicator(value: downloadProgress.progress),
+                                        errorWidget: (context, url, error) => const Icon(Icons.error),
                                       ),
                                     ),
+
                                   ),
                                   SizedBox(
                                     height: 8.h,
@@ -124,12 +128,13 @@ class HomeTab extends StatelessWidget {
                                     height: 100.h,
                                     width: 100.w,
                                     child: ClipOval(
-                                      child: Image.network(
-                                        HomeCubit.get(context)
-                                                .brands[index]
-                                                .image ??
-                                           "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png",
-                                        fit: BoxFit.fill,
+                                      child: CachedNetworkImage(
+                                        imageUrl: HomeCubit.get(context)
+                                            .brands[index]
+                                            .image?? "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png",
+                                        progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                            CircularProgressIndicator(value: downloadProgress.progress),
+                                        errorWidget: (context, url, error) => const Icon(Icons.error),
                                       ),
                                     ),
                                   ),

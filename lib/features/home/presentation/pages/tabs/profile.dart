@@ -24,6 +24,25 @@ class ProfileTab extends StatelessWidget {
             HomeCubit.get(context).email,
             style: poppins14W400(),
           ),
+          SizedBox(
+            height: 40.h,
+          ),
+          Text(
+            'Username',
+            style: poppins18W500().copyWith(color: AppColors.primary),
+          ),
+          SizedBox(
+            height: 16.h,
+          ),
+          Row(
+            children: [
+              Text(
+                HomeCubit.get(context).userName,
+                style: poppins18W500().copyWith(color: AppColors.primary),
+              ),
+              const Spacer(),
+            ],
+          ),
           const Spacer(),
           Row(
             children: [

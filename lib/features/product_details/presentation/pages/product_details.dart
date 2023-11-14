@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/config/routes/routes.dart';
 import 'package:e_commerce/core/utils/app_colors.dart';
 import 'package:e_commerce/core/utils/text_styles.dart';
@@ -115,14 +116,15 @@ class ProductDetails extends StatelessWidget {
               centerTitle: true,
             ),
             body: Padding(
-              padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8, horizontal: 16).r,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.r),
+                        borderRadius: BorderRadius.circular(15.r).w,
                         border: Border.all(
                             color: const Color(0xff004182).withOpacity(.3),
                             width: 2.w)),
@@ -136,12 +138,19 @@ class ProductDetails extends StatelessWidget {
                         children: List.generate(
                           entity.images!.length,
                           (index) => ClipRRect(
-                            borderRadius: BorderRadius.circular(15.r),
-                            child: Image.network(
-                              entity.images![index],
+                            borderRadius: BorderRadius.circular(15.r).w,
+                            child: CachedNetworkImage(
+                              imageUrl: entity.images![index],
                               width: double.infinity.w,
                               height: 300.h,
                               fit: BoxFit.fill,
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) =>
+                                      CircularProgressIndicator(
+                                value: downloadProgress.progress,
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
                             ),
                           ),
                         )),
@@ -160,7 +169,9 @@ class ProductDetails extends StatelessWidget {
                           maxLines: 2,
                         ),
                       ),
-                      const Spacer(),
+                      const Spacer(
+                        flex: 2,
+                      ),
                       Text(
                         "EGP ${entity.price.toString()}",
                         style:
@@ -174,12 +185,13 @@ class ProductDetails extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 8.h, horizontal: 16.w),
+                        padding: const EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 16)
+                            .r,
                         decoration: BoxDecoration(
                             border: Border.all(
                                 width: 1.w, color: AppColors.primary),
-                            borderRadius: BorderRadius.circular(20.r)),
+                            borderRadius: BorderRadius.circular(20.r).w),
                         child: Text(
                           "${entity.sold.toString()} Sold",
                           style: poppins18W500()
@@ -202,11 +214,12 @@ class ProductDetails extends StatelessWidget {
                       const Spacer(),
                       Expanded(
                         child: Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 11.h, horizontal: 16.w),
+                          padding: const EdgeInsets.symmetric(
+                                  vertical: 11, horizontal: 16)
+                              .r,
                           decoration: BoxDecoration(
                               color: const Color(0xff004182),
-                              borderRadius: BorderRadius.circular(20.r)),
+                              borderRadius: BorderRadius.circular(20.r).w),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -222,13 +235,13 @@ class ProductDetails extends StatelessWidget {
                                   }
                                 },
                                 child: Container(
-                                  width: 22.r,
-                                  height: 22.r,
+                                  width: 22.w,
+                                  height: 22.h,
                                   decoration: BoxDecoration(
                                       border: Border.all(
-                                          width: 2, color: Colors.white),
+                                          width: 2.w, color: Colors.white),
                                       borderRadius:
-                                          BorderRadius.circular(11.r)),
+                                          BorderRadius.circular(11).w),
                                   child: const Center(
                                     child: Icon(
                                       Icons.remove,
@@ -268,13 +281,13 @@ class ProductDetails extends StatelessWidget {
                                   }
                                 },
                                 child: Container(
-                                  width: 22.r,
-                                  height: 22.r,
+                                  width: 22.w,
+                                  height: 22.h,
                                   decoration: BoxDecoration(
                                       border: Border.all(
-                                          width: 2, color: Colors.white),
+                                          width: 2.w, color: Colors.white),
                                       borderRadius:
-                                          BorderRadius.circular(11.r)),
+                                          BorderRadius.circular(11).w),
                                   child: const Center(
                                     child: Icon(
                                       Icons.add,

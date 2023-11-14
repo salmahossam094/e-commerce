@@ -39,14 +39,18 @@ class HomeCubit extends Cubit<HomeStates> {
   bool isFav = true;
 
   var searchController = TextEditingController();
+  TextEditingController userNameController = TextEditingController();
+  var emailController = TextEditingController();
   List<DataEntity> categories = [];
   List<DataEntity> brands = [];
   List<SubDataEntity> subCat = [];
   int selectedValue = 0;
   List<DataWishEntity> wishList = [];
   String userName = CacheHelper.getData('UserName');
-
   String email = CacheHelper.getData('Email');
+
+
+
 
   void changeNav(int value) {
     emit(HomeInitState());
@@ -105,7 +109,6 @@ class HomeCubit extends Cubit<HomeStates> {
     WishListUseCase wishListUseCase = WishListUseCase(homeTabDomainRepo);
     var result = await wishListUseCase.call();
     result.fold((l) {
-
       emit(GetWishErrorState(l));
     }, (r) {
       r1 = r;

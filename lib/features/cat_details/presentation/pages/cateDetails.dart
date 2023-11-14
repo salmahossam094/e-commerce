@@ -149,6 +149,7 @@ class CatDetails extends StatelessWidget {
                                       children: CatCubit.get(context)
                                           .catDet
                                           .map((e) => ProductWidget(
+
                                                 // price: e.price.toString(),
                                                 // name: e.title ?? "",
                                                 // image: e.imageCover ?? '',

@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/features/cart/data/data_sources/cart_dto.dart';
 import 'package:e_commerce/features/cart/presentation/manager/cubit.dart';
 import 'package:e_commerce/features/cart/presentation/manager/states.dart';
@@ -101,11 +102,12 @@ class CartPage extends StatelessWidget {
                                     itemBuilder: (context, index) => Column(
                                       children: [
                                         Container(
-                                            height: 115.h,
+                                            height: 120.h,
                                             width: 400.w,
                                             decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(15.r),
+                                                    BorderRadius.circular(15.r)
+                                                        .w,
                                                 border: Border.all(
                                                     color: const Color.fromRGBO(
                                                         0, 65, 130, 0.3),
@@ -116,30 +118,41 @@ class CartPage extends StatelessWidget {
                                                   decoration: BoxDecoration(
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              15.r),
+                                                                  15.r)
+                                                              .w,
                                                       border: Border.all(
                                                           color: const Color
                                                               .fromRGBO(
                                                               0, 65, 130, 0.3),
                                                           width: 1.w)),
-                                                  child: Image.network(
-                                                    CartCubit.get(context)
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: CartCubit.get(
+                                                                context)
                                                             .cartResponse
                                                             .data
                                                             ?.products![index]
                                                             .product
                                                             ?.imageCover ??
-                                                        'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png?20210219185637',
-                                                    height: 113.h,
-                                                    width: 120.w,
+                                                        "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png",
+                                                    progressIndicatorBuilder: (context,
+                                                            url,
+                                                            downloadProgress) =>
+                                                        CircularProgressIndicator(
+                                                            value:
+                                                                downloadProgress
+                                                                    .progress),
+                                                    errorWidget: (context, url,
+                                                            error) =>
+                                                        const Icon(Icons.error),
                                                   ),
                                                 ),
                                                 Expanded(
                                                   child: Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 8,
-                                                        vertical: 8),
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                                horizontal: 8.w,
+                                                                vertical: 8.h)
+                                                            .r,
                                                     child: Column(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
@@ -213,18 +226,18 @@ class CartPage extends StatelessWidget {
                                                             const Spacer(),
                                                             Expanded(
                                                               child: Container(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
+                                                                padding: EdgeInsets.symmetric(
                                                                         vertical:
                                                                             8.h,
                                                                         horizontal:
-                                                                            10.w),
+                                                                            10.w)
+                                                                    .r,
                                                                 decoration: BoxDecoration(
                                                                     color: const Color(
                                                                         0xff004182),
                                                                     borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            20.r)),
+                                                                        BorderRadius.circular(20)
+                                                                            .w),
                                                                 child: Row(
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
@@ -260,13 +273,13 @@ class CartPage extends StatelessWidget {
                                                                       child:
                                                                           Container(
                                                                         width:
-                                                                            22.r,
+                                                                            22.w,
                                                                         height:
-                                                                            22.r,
+                                                                            22.h,
                                                                         decoration: BoxDecoration(
                                                                             border:
-                                                                                Border.all(width: 2, color: Colors.white),
-                                                                            borderRadius: BorderRadius.circular(11.r)),
+                                                                                Border.all(width: 2.w, color: Colors.white),
+                                                                            borderRadius: BorderRadius.circular(11).w),
                                                                         child:
                                                                             const Center(
                                                                           child:
@@ -316,8 +329,8 @@ class CartPage extends StatelessWidget {
                                                                             22.r,
                                                                         decoration: BoxDecoration(
                                                                             border:
-                                                                                Border.all(width: 2, color: Colors.white),
-                                                                            borderRadius: BorderRadius.circular(11.r)),
+                                                                                Border.all(width: 2.w, color: Colors.white),
+                                                                            borderRadius: BorderRadius.circular(11).w),
                                                                         child:
                                                                             const Center(
                                                                           child:

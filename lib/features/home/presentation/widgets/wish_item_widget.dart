@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/core/utils/app_colors.dart';
 import 'package:e_commerce/core/utils/text_styles.dart';
 import 'package:e_commerce/features/home/domain/entities/GetWishListResponse.dart';
@@ -21,11 +22,14 @@ class WishItemWidget extends StatelessWidget {
           border: Border.all(color: AppColors.primary.withOpacity(0.5))),
       child: Row(
         children: [
-          Image.network(
-            wishlist.imageCover ??
-                'https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png',
+          CachedNetworkImage(
             width: 120.w,
             height: 113.h,
+            imageUrl: wishlist.imageCover ??
+                "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png",
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                CircularProgressIndicator(value: downloadProgress.progress),
+            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
           Expanded(
             child: Column(

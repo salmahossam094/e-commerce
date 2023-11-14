@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/config/routes/routes.dart';
 import 'package:e_commerce/features/cat_details/domain/entities/CatDetailsEntity.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ import '../manager/states.dart';
 class ProductWidget extends StatelessWidget {
   ProductWidget(
       {required this.e,
+
       // {required this.price,
       // required this.name,
       // required this.image,
@@ -25,6 +27,7 @@ class ProductWidget extends StatelessWidget {
   // String name;
   // String review;
   DataDetailsEntity e;
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,17 +55,28 @@ class ProductWidget extends StatelessWidget {
                         alignment: Alignment.topRight,
                         children: [
                           SizedBox(
-                              height: 128.h,
-                              width: 192.w,
-                              child: Image.network(e.imageCover ?? '',
-                                  fit: BoxFit.fill)),
+                            height: 128.h,
+                            width: 192.w,
+                            child: CachedNetworkImage(
+                              imageUrl: e.imageCover ?? '',
+                              fit: BoxFit.fill,
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) =>
+                                      CircularProgressIndicator(
+                                value: downloadProgress.progress,
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                            ),
+                          ),
                           InkWell(
                             onTap: () {
                               CatCubit.get(context).addToWishList(e.sid ?? '');
+
                             },
                             child: const Icon(
                               Icons.favorite_border,
-                              color: AppColors.primary,
+
                             ),
                           ),
                         ],
