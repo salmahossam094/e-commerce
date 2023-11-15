@@ -77,7 +77,7 @@ class CatDetails extends StatelessWidget {
                       title: 'Successful',
                       dialogType: DialogType.success)
                   .show();
-            }else  if (state is AddToWishLoadingState) {
+            } else if (state is AddToWishLoadingState) {
               showDialog(
                 context: context,
                 builder: (context) => const AlertDialog(
@@ -103,10 +103,10 @@ class CatDetails extends StatelessWidget {
               Navigator.pop(context);
 
               AwesomeDialog(
-                  context: context,
-                  title: 'Successful',
-                  autoHide: const Duration(seconds: 4),
-                  dialogType: DialogType.success)
+                      context: context,
+                      title: 'Successful',
+                      autoHide: const Duration(seconds: 4),
+                      dialogType: DialogType.success)
                   .show();
             }
           },
@@ -135,21 +135,22 @@ class CatDetails extends StatelessWidget {
                                     color: AppColors.primary, fontSize: 24.sp)))
                         : SingleChildScrollView(
                             child: Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(10.0).w,
                               child: Column(
                                 children: [
                                   Container(
-                                    padding: const EdgeInsets.all(8),
+                                    padding: const EdgeInsets.all(8).w,
                                     height: 800.h,
                                     child: GridView.count(
                                       scrollDirection: Axis.vertical,
                                       childAspectRatio: 3.3 / 5,
                                       shrinkWrap: true,
                                       crossAxisCount: 2,
+                                      crossAxisSpacing: 15,
+                                      mainAxisSpacing:5,
                                       children: CatCubit.get(context)
                                           .catDet
                                           .map((e) => ProductWidget(
-
                                                 // price: e.price.toString(),
                                                 // name: e.title ?? "",
                                                 // image: e.imageCover ?? '',

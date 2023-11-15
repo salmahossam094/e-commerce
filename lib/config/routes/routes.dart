@@ -14,10 +14,10 @@ import '../../features/sign_up/data/data_sources/remote_data_source.dart';
 import '../../features/sign_up/presentation/manager/cubit.dart';
 
 class Routes {
-  static const String loginRoute = '/';
+  static const String loginRoute = 'login';
   static const String signUpRoute = 'signUp';
   static const String homeRoute = 'home';
-  static const String splash = 'Splash';
+  static const String splash = '/';
   static const String catDetails = 'CatDetails';
   static const String proDetails = "ProDetails";
   static const String cart = 'Cart';

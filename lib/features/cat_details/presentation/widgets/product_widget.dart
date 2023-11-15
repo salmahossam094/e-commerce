@@ -43,14 +43,14 @@ class ProductWidget extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   side: BorderSide(
                       color: const Color.fromRGBO(0, 65, 130, 0.3), width: 2.w),
-                  borderRadius: BorderRadius.circular(10.r)),
+                  borderRadius: BorderRadius.circular(10.r).w),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0).w,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0).w,
                       child: Stack(
                         alignment: Alignment.topRight,
                         children: [
@@ -87,7 +87,7 @@ class ProductWidget extends StatelessWidget {
                     ),
                     Text(
                       e.title ?? '',
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: poppins18W500()
                           .copyWith(color: AppColors.primary, fontSize: 14.sp),

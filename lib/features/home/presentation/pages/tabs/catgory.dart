@@ -39,7 +39,7 @@ class CategoryTab extends StatelessWidget {
               HomeCubit.get(context).subCat.isEmpty
           ? const Center(child: CircularProgressIndicator())
           : Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0).w,
               child: Column(
                 children: [
                   const SearchWidget(),
@@ -70,7 +70,7 @@ class CategoryTab extends StatelessWidget {
                                         },
                                         child: Container(
                                           padding: const EdgeInsets.only(
-                                              left: 10, bottom: 10, top: 10),
+                                              left: 10, bottom: 10, top: 10).w,
                                           decoration: BoxDecoration(
                                             color: HomeCubit.get(context)
                                                         .selectedValue ==
@@ -86,7 +86,7 @@ class CategoryTab extends StatelessWidget {
                                                 height: 60.h,
                                                 margin: const EdgeInsets.only(
                                                   right: 5,
-                                                ),
+                                                ).r,
                                                 decoration: BoxDecoration(
                                                     color: HomeCubit.get(
                                                                     context)
@@ -97,7 +97,7 @@ class CategoryTab extends StatelessWidget {
                                                     borderRadius:
                                                         BorderRadius.all(
                                                             Radius.circular(
-                                                                10.r)),
+                                                                10.r).w),
                                                     border: Border.all(
                                                       width: 5.w,
                                                       color: HomeCubit.get(
@@ -130,7 +130,7 @@ class CategoryTab extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(8.0).w,
                                     child: Text(
                                       HomeCubit.get(context)
                                               .categories[HomeCubit.get(context)
@@ -143,7 +143,7 @@ class CategoryTab extends StatelessWidget {
                                   ),
                                   Expanded(
                                     child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.all(8.0).w,
                                         child: GridView.count(
                                           crossAxisCount: 2,
                                           childAspectRatio: 4 / 5,

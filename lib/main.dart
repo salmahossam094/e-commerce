@@ -14,14 +14,10 @@ Future<void> main() async {
   ]);
   await CacheHelper.init();
   Bloc.observer = MyBlocObserver();
-  var user = CacheHelper.getData("User");
-  String route;
-  if (user == null) {
-    route = Routes.loginRoute;
-  } else {
-    route = Routes.homeRoute;
-  }
+
+
   runApp(MyApp(
-    route: route,
+
+    route: '/',
   ));
 }

@@ -29,7 +29,7 @@ class WishItemWidget extends StatelessWidget {
                 "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png",
             progressIndicatorBuilder: (context, url, downloadProgress) =>
                 CircularProgressIndicator(value: downloadProgress.progress),
-            errorWidget: (context, url, error) => Icon(Icons.error),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
           Expanded(
             child: Column(
