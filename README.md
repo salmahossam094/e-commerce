@@ -23,4 +23,4 @@ I used many Features:<br>
 ## Cart Screen 
 <img src="https://github.com/salmahossam094/e-commerce/assets/90824795/79d5134b-3475-421e-95d3-c7d58a4789fb" width=200> <br>
 ## Wishlist Tab
-<img src="https://github.com/salmahossam094/e-commerce/assets/90824795/d5d5b0a4-afbd-4972-ab81-069edccc018c" width=200 height=300> <br>
+<img src="https://github.com/salmahossam094/e-commerce/assets/90824795/d5d5b0a4-afbd-4972-ab81-069edccc018c" width=200 height=400> <br>
