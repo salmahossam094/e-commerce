@@ -20,4 +20,7 @@ I used many Features:<br>
 <img src="https://github.com/salmahossam094/e-commerce/assets/90824795/0251e281-8bfb-4149-9218-07938dc35b58" width=200> <br>
 ## Product Details
 <img src="https://github.com/salmahossam094/e-commerce/assets/90824795/c65b3f87-e397-4b13-9315-c18048ab19a1" width=200> <br>
-
+## Cart Screen 
+<img src="https://github.com/salmahossam094/e-commerce/assets/90824795/79d5134b-3475-421e-95d3-c7d58a4789fb" width=200> <br>
+## Wishlist Tab
+<img src="https://github.com/salmahossam094/e-commerce/assets/90824795/d5d5b0a4-afbd-4972-ab81-069edccc018c" width=200 height=300> <br>
