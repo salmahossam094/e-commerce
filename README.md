@@ -18,5 +18,6 @@ I used many Features:<br>
 ![msg1350577729-3621](https://github.com/salmahossam094/e-commerce/assets/90824795/8cdfcdff-54c9-4094-85f7-4e815f219adb)
 ## Category Details 
 ![msg1350577729-3618](https://github.com/salmahossam094/e-commerce/assets/90824795/0251e281-8bfb-4149-9218-07938dc35b58)
-
+## Product Details
+![msg1350577729-3619](https://github.com/salmahossam094/e-commerce/assets/90824795/c65b3f87-e397-4b13-9315-c18048ab19a1)
 
