@@ -74,7 +74,7 @@ class CatDetails extends StatelessWidget {
               Navigator.pop(context);
               AwesomeDialog(
                       context: context,
-                      title: 'Successful',
+                      title: 'Add to cart successfully',
                       dialogType: DialogType.success)
                   .show();
             } else if (state is AddToWishLoadingState) {
@@ -104,7 +104,7 @@ class CatDetails extends StatelessWidget {
 
               AwesomeDialog(
                       context: context,
-                      title: 'Successful',
+                      title: 'Add to wishlist successfully',
                       autoHide: const Duration(seconds: 4),
                       dialogType: DialogType.success)
                   .show();
