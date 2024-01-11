@@ -1,7 +1,10 @@
 import 'package:e_commerce/core/utils/components.dart';
+import 'package:e_commerce/features/cart/presentation/manager/cubit.dart';
 import 'package:e_commerce/features/cart/presentation/pages/cart.dart';
 import 'package:e_commerce/features/cat_details/domain/entities/CatDetailsEntity.dart';
 import 'package:e_commerce/features/cat_details/presentation/pages/cateDetails.dart';
+import 'package:e_commerce/features/checkout/presentation/pages/checkout.dart';
+import 'package:e_commerce/features/checkout/presentation/pages/visa.dart';
 import 'package:e_commerce/features/home/presentation/pages/home.dart';
 import 'package:e_commerce/features/product_details/presentation/pages/product_details.dart';
 import 'package:e_commerce/features/sign_up/presentation/pages/sign_up.dart';
@@ -21,6 +24,8 @@ class Routes {
   static const String catDetails = 'CatDetails';
   static const String proDetails = "ProDetails";
   static const String cart = 'Cart';
+  static const String checkout = 'Checkout';
+  static const String visa = 'Visa';
 }
 
 class AppRoutes {
@@ -60,6 +65,17 @@ class AppRoutes {
       case Routes.cart:
         return MaterialPageRoute(
           builder: (context) => const CartPage(),
+        );
+      case Routes.checkout:
+        CartCubit cartCubit = routeSettings.arguments as CartCubit;
+        return MaterialPageRoute(
+          builder: (context) => Checkout(
+            mybloc: cartCubit,
+          ),
+        );
+      case Routes.visa:
+        return MaterialPageRoute(
+          builder: (context) => const VisaWebView(),
         );
       default:
         return MaterialPageRoute(

@@ -4,6 +4,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/config/routes/routes.dart';
 import 'package:e_commerce/core/utils/app_colors.dart';
+import 'package:e_commerce/core/utils/cache_helper.dart';
 import 'package:e_commerce/core/utils/text_styles.dart';
 import 'package:e_commerce/features/cat_details/domain/entities/CatDetailsEntity.dart';
 import 'package:e_commerce/features/cat_details/presentation/widgets/search_delgate.dart';
@@ -64,7 +65,7 @@ class ProductDetails extends StatelessWidget {
                     dialogType: DialogType.error,
                     autoHide: const Duration(seconds: 3),
                     title: 'Error',
-                    desc: 'Please add product to cart')
+                    desc: state.failures.message.toString())
                 .show();
           } else if (state is UpdateQuantitySuccessState) {
             AwesomeDialog(
@@ -229,6 +230,7 @@ class ProductDetails extends StatelessWidget {
                                 onTap: () {
                                   if (ProdCubit.get(context).proCount > 1) {
                                     ProdCubit.get(context).proCount--;
+
                                     ProdCubit.get(context).updateQuantity(
                                         entity.sid!,
                                         ProdCubit.get(context).proCount);
@@ -375,6 +377,8 @@ class ProductDetails extends StatelessWidget {
                           onPressed: () {
                             ProdCubit.get(context)
                                 .addToCart(entity.id.toString());
+                            print(entity.sid);
+                            print(CacheHelper.getData('User'));
                           },
                         ))
                       ],

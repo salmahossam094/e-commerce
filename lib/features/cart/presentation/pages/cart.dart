@@ -1,8 +1,11 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce/config/routes/routes.dart';
+import 'package:e_commerce/core/utils/cache_helper.dart';
+import 'package:e_commerce/core/utils/constants.dart';
 import 'package:e_commerce/features/cart/data/data_sources/cart_dto.dart';
 import 'package:e_commerce/features/cart/presentation/manager/cubit.dart';
 import 'package:e_commerce/features/cart/presentation/manager/states.dart';
+import 'package:e_commerce/features/cart/presentation/widgets/cart_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,8 +18,9 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var mybloc = CartCubit(RemoteCart());
     return BlocProvider(
-      create: (context) => CartCubit(RemoteCart())..getCart(),
+      create: (context) => mybloc..getCart(),
       child: BlocConsumer<CartCubit, CartStates>(
         listener: (context, state) {
           if (state is CartLoadingState) {
@@ -62,6 +66,56 @@ class CartPage extends StatelessWidget {
                     title: 'Error',
                     dialogType: DialogType.error)
                 .show();
+          } else if (state is SuccessOrderIdState) {
+            Navigator.pushNamed(context, Routes.checkout, arguments: mybloc);
+          } else if (state is ErrorOrderIdState) {
+            showDialog(
+              context: context,
+              builder: (context) => const AlertDialog(
+                title: Text('Your Cart is empty'),
+              ),
+            );
+          } else if (state is SuccessRequestTokenState) {
+            Navigator.pushNamed(context, Routes.visa);
+          } else if (state is ErrorRequestTokenState) {
+            showDialog(
+              context: context,
+              builder: (context) => const AlertDialog(
+                title: Text('This order is paid'),
+              ),
+            );
+          } else if (state is ErrorReferenceCodeState) {
+            showDialog(
+              context: context,
+              builder: (context) => const AlertDialog(
+                title: Text('This order is paid'),
+              ),
+            );
+            print(CacheHelper.getData('User'));
+          } else if (state is SuccessReferenceCodeState) {
+            showModalBottomSheet(
+              context: context,
+              isDismissible: false,
+              builder: (context) => Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: SizedBox(
+                    height: 100,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'go to supermarket with reference code:  $reference',
+                          style: poppins24W600()
+                              .copyWith(color: AppColors.primary),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
           }
         },
         builder: (context, state) {
@@ -86,287 +140,185 @@ class CartPage extends StatelessWidget {
                 : Column(
                     children: [
                       Expanded(
-                        child:
-                            CartCubit.get(context)
-                                            .cartResponse
-                                            .numOfCartItems ==
-                                        0 ||
-                                    state is GetCartErrorState
-                                ? Center(
-                                    child: Text(
-                                    'Your cart is empty',
-                                    style: poppins24W600()
-                                        .copyWith(color: AppColors.primary),
-                                  ))
-                                : ListView.builder(
-                                    itemBuilder: (context, index) => Column(
-                                      children: [
-                                        Container(
-                                            height: 120.h,
-                                            width: 400.w,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(15.r)
-                                                        .w,
-                                                border: Border.all(
-                                                    color: const Color.fromRGBO(
-                                                        0, 65, 130, 0.3),
-                                                    width: 1.w)),
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                                  15.r)
-                                                              .w,
-                                                      border: Border.all(
-                                                          color: const Color
-                                                              .fromRGBO(
-                                                              0, 65, 130, 0.3),
-                                                          width: 1.w)),
-                                                  child: CachedNetworkImage(
-                                                    imageUrl: CartCubit.get(
-                                                                context)
-                                                            .cartResponse
-                                                            .data
-                                                            ?.products![index]
-                                                            .product
-                                                            ?.imageCover ??
-                                                        "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png",
-                                                    progressIndicatorBuilder: (context,
-                                                            url,
-                                                            downloadProgress) =>
-                                                        CircularProgressIndicator(
-                                                            value:
-                                                                downloadProgress
-                                                                    .progress),
-                                                    errorWidget: (context, url,
-                                                            error) =>
-                                                        const Icon(Icons.error),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                                horizontal: 8.w,
-                                                                vertical: 8.h)
-                                                            .r,
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Row(
-                                                          children: [
-                                                            Flexible(
-                                                              child: Text(
-                                                                CartCubit.get(
-                                                                            context)
-                                                                        .cartResponse
-                                                                        .data
-                                                                        ?.products![
-                                                                            index]
-                                                                        .product
-                                                                        ?.title ??
-                                                                    '',
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                softWrap: true,
-                                                                maxLines: 2,
-                                                                style: poppins14W400()
-                                                                    .copyWith(
-                                                                        color: AppColors
-                                                                            .primary),
-                                                              ),
-                                                            ),
-                                                            const Spacer(),
-                                                            IconButton(
-                                                                onPressed: () {
-                                                                  CartCubit.get(context).deleteItem(CartCubit.get(
-                                                                              context)
-                                                                          .cartResponse
-                                                                          .data
-                                                                          ?.products?[
-                                                                              index]
-                                                                          .product
-                                                                          ?.sid ??
-                                                                      '');
-                                                                },
-                                                                icon:
-                                                                    const Icon(
-                                                                  Icons
-                                                                      .delete_outline_rounded,
-                                                                  color: AppColors
-                                                                      .primary,
-                                                                  size: 24,
-                                                                ))
-                                                          ],
-                                                        ),
-                                                        const Spacer(),
-                                                        Row(
-                                                          children: [
-                                                            Text(
-                                                              CartCubit.get(
-                                                                          context)
-                                                                      .cartResponse
-                                                                      .data
-                                                                      ?.products?[
-                                                                          index]
-                                                                      .price
-                                                                      .toString() ??
-                                                                  '',
-                                                              style: poppins18W500()
-                                                                  .copyWith(
-                                                                      color: AppColors
-                                                                          .primary),
-                                                            ),
-                                                            const Spacer(),
-                                                            Expanded(
-                                                              child: Container(
-                                                                padding: EdgeInsets.symmetric(
-                                                                        vertical:
-                                                                            8.h,
-                                                                        horizontal:
-                                                                            10.w)
-                                                                    .r,
-                                                                decoration: BoxDecoration(
-                                                                    color: const Color(
-                                                                        0xff004182),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(20)
-                                                                            .w),
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    InkWell(
-                                                                      onTap:
-                                                                          () {
-                                                                        CartCubit.get(context)
-                                                                            .proCount = int.parse(CartCubit.get(
-                                                                                context)
-                                                                            .cartResponse
-                                                                            .data!
-                                                                            .products![index]
-                                                                            .count
-                                                                            .toString());
-                                                                        if (CartCubit.get(context).proCount <=
-                                                                            1) {
-                                                                          CartCubit.get(context).deleteItem(CartCubit.get(context)
-                                                                              .cartResponse
-                                                                              .data!
-                                                                              .products![index]
-                                                                              .product!
-                                                                              .sid!);
-                                                                        } else {
-                                                                          CartCubit.get(context)
-                                                                              .proCount--;
-                                                                          CartCubit.get(context).updateCount(
-                                                                              CartCubit.get(context).cartResponse.data!.products![index].product!.sid!,
-                                                                              CartCubit.get(context).proCount);
-                                                                        }
-                                                                      },
-                                                                      child:
-                                                                          Container(
-                                                                        width:
-                                                                            22.w,
-                                                                        height:
-                                                                            22.h,
-                                                                        decoration: BoxDecoration(
-                                                                            border:
-                                                                                Border.all(width: 2.w, color: Colors.white),
-                                                                            borderRadius: BorderRadius.circular(11).w),
-                                                                        child:
-                                                                            const Center(
-                                                                          child:
-                                                                              Icon(
-                                                                            Icons.remove,
-                                                                            size:
-                                                                                15,
-                                                                            color:
-                                                                                Colors.white,
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Text(
-                                                                      CartCubit.get(context)
-                                                                              .cartResponse
-                                                                              .data
-                                                                              ?.products?[index]
-                                                                              .count
-                                                                              .toString() ??
-                                                                          '',
-                                                                      style:
-                                                                          poppins18W500(),
-                                                                    ),
-                                                                    InkWell(
-                                                                      onTap:
-                                                                          () {
-                                                                        CartCubit.get(context)
-                                                                            .proCount = int.parse(CartCubit.get(
-                                                                                context)
-                                                                            .cartResponse
-                                                                            .data!
-                                                                            .products![index]
-                                                                            .count
-                                                                            .toString());
-                                                                        CartCubit.get(context)
-                                                                            .proCount++;
-                                                                        CartCubit.get(context).updateCount(
-                                                                            CartCubit.get(context).cartResponse.data!.products![index].product!.sid!,
-                                                                            CartCubit.get(context).proCount);
-                                                                      },
-                                                                      child:
-                                                                          Container(
-                                                                        width:
-                                                                            22.r,
-                                                                        height:
-                                                                            22.r,
-                                                                        decoration: BoxDecoration(
-                                                                            border:
-                                                                                Border.all(width: 2.w, color: Colors.white),
-                                                                            borderRadius: BorderRadius.circular(11).w),
-                                                                        child:
-                                                                            const Center(
-                                                                          child:
-                                                                              Icon(
-                                                                            Icons.add,
-                                                                            size:
-                                                                                10,
-                                                                            color:
-                                                                                Colors.white,
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            )
-                                                          ],
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            )),
-                                        SizedBox(
-                                          height: 24.h,
-                                        )
-                                      ],
-                                    ),
-                                    itemCount: CartCubit.get(context)
+                        child: CartCubit.get(context)
                                         .cartResponse
-                                        .data
-                                        ?.products
-                                        ?.length,
-                                  ),
+                                        .numOfCartItems ==
+                                    0 ||
+                                state is GetCartErrorState
+                            ? Center(
+                                child: Text(
+                                'Your cart is empty',
+                                style: poppins24W600()
+                                    .copyWith(color: AppColors.primary),
+                              ))
+                            : ListView.builder(
+                                itemBuilder: (context, index) => CartItem(
+                                  title: CartCubit.get(context)
+                                          .cartResponse
+                                          .data
+                                          ?.products![index]
+                                          .product
+                                          ?.title ??
+                                      '',
+                                  price: CartCubit.get(context)
+                                          .cartResponse
+                                          .data
+                                          ?.products?[index]
+                                          .price
+                                          .toString() ??
+                                      '',
+                                  image: CartCubit.get(context)
+                                          .cartResponse
+                                          .data
+                                          ?.products![index]
+                                          .product
+                                          ?.imageCover ??
+                                      "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png",
+                                  deleteItem: () {
+                                    CartCubit.get(context).deleteItem(
+                                        CartCubit.get(context)
+                                                .cartResponse
+                                                .data
+                                                ?.products?[index]
+                                                .product
+                                                ?.sid ??
+                                            '');
+                                  },
+                                  updateQuan: () {
+                                    CartCubit.get(context).proCount = int.parse(
+                                        CartCubit.get(context)
+                                            .cartResponse
+                                            .data!
+                                            .products![index]
+                                            .count
+                                            .toString());
+                                    if (CartCubit.get(context).proCount <= 1) {
+                                      CartCubit.get(context).deleteItem(
+                                          CartCubit.get(context)
+                                              .cartResponse
+                                              .data!
+                                              .products![index]
+                                              .product!
+                                              .sid!);
+                                    } else {
+                                      CartCubit.get(context).proCount--;
+                                      CartCubit.get(context).updateCount(
+                                          CartCubit.get(context)
+                                              .cartResponse
+                                              .data!
+                                              .products![index]
+                                              .product!
+                                              .sid!,
+                                          CartCubit.get(context).proCount);
+                                    }
+                                  },
+                                  quantity: CartCubit.get(context)
+                                          .cartResponse
+                                          .data
+                                          ?.products?[index]
+                                          .count
+                                          .toString() ??
+                                      '',
+                                  addQuan: () {
+                                    CartCubit.get(context).proCount = int.parse(
+                                        CartCubit.get(context)
+                                            .cartResponse
+                                            .data!
+                                            .products![index]
+                                            .count
+                                            .toString());
+                                    CartCubit.get(context).proCount++;
+                                    CartCubit.get(context).updateCount(
+                                        CartCubit.get(context)
+                                            .cartResponse
+                                            .data!
+                                            .products![index]
+                                            .product!
+                                            .sid!,
+                                        CartCubit.get(context).proCount);
+                                  },
+                                ),
+                                itemCount: CartCubit.get(context)
+                                    .cartResponse
+                                    .data
+                                    ?.products
+                                    ?.length,
+                              ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Row(
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  'Total price',
+                                  style: poppins24W600().copyWith(
+                                      fontSize: 18.sp,
+                                      color: const Color.fromRGBO(
+                                          0, 65, 130, 0.6)),
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Text(
+                                  CartCubit.get(context)
+                                          .cartResponse
+                                          .data
+                                          ?.totalCartPrice
+                                          .toString() ??
+                                      '0',
+                                  style: poppins18W500()
+                                      .copyWith(color: AppColors.primary),
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              width: 20.w,
+                            ),
+                            Expanded(
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        textStyle: poppins18W500(),
+                                        backgroundColor: AppColors.primary),
+                                    onPressed: () {
+                                      CartCubit.get(context)
+                                                      .cartResponse
+                                                      .numOfCartItems ==
+                                                  0 ||
+                                              state is GetCartErrorState
+                                          ? CartCubit.get(context)
+                                              .getAuthTokenCard(
+                                                  amount: CartCubit.get(context)
+                                                          .cartResponse
+                                                          .data
+                                                          ?.totalCartPrice
+                                                          .toString() ??
+                                                      '',
+                                                  currency: "EGP")
+                                          : showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                title:
+                                                    Text('Your cart is empty'),
+                                              ),
+                                            );
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          'checkout',
+                                        ),
+                                        SizedBox(
+                                          width: 10.w,
+                                        ),
+                                        const Icon(Icons.arrow_forward_rounded)
+                                      ],
+                                    )))
+                          ],
+                        ),
                       )
                     ],
                   ),

@@ -48,6 +48,7 @@ class LoginScreen extends StatelessWidget {
             CacheHelper.saveData(key: 'User', value: state.loginEntity.token);
             CacheHelper.saveData(key: 'UserName', value: state.loginEntity.user!.name);
             CacheHelper.saveData(key: 'Email', value: state.loginEntity.user!.email);
+
             Navigator.pushNamedAndRemoveUntil(
               context,
               Routes.homeRoute,

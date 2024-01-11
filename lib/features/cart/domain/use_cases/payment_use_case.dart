@@ -1,39 +1,22 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce/core/error/failures.dart';
-import 'package:e_commerce/features/cart/data/data_sources/cart_dto.dart';
 import 'package:e_commerce/features/cart/domain/entities/AuthTokenModel.dart';
-import 'package:e_commerce/features/cart/domain/entities/CartResponse.dart';
 import 'package:e_commerce/features/cart/domain/entities/OrderIdModel.dart';
 import 'package:e_commerce/features/cart/domain/entities/RequestTokenModel.dart';
 import 'package:e_commerce/features/cart/domain/repositories/cart_domain_repo.dart';
 
-class CartDataRepo implements CartDomainRepo {
-  CartDTO cartDTO;
+class PaymentUseCase {
+  CartDomainRepo cartDomainRepo;
 
-  CartDataRepo(this.cartDTO);
+  PaymentUseCase(this.cartDomainRepo);
 
-  @override
-  Future<Either<Failures, CartResponse>> getCart() => cartDTO.getCart();
+  Future<Either<Failures, AuthTokenModel>> call() =>
+      cartDomainRepo.getAuthToken();
 
-  @override
-  Future<Either<Failures, CartResponse>> deleteItem(String itemId) =>
-      cartDTO.deleteItem(itemId);
-
-  @override
-  Future<Either<Failures, CartResponse>> updateQuantity(
-          String itemId, int count) =>
-      cartDTO.updateQuantity(itemId, count);
-
-  @override
-  Future<Either<Failures, AuthTokenModel>> getAuthToken() =>
-      cartDTO.getAuthToken();
-
-  @override
   Future<Either<Failures, OrderIdModel>> getOrderId(
           {required String amount, required String currency}) =>
-      cartDTO.getOrderId(amount: amount, currency: currency);
+      cartDomainRepo.getOrderId(amount: amount, currency: currency);
 
-  @override
   Future<Either<Failures, RequestTokenModel>> getRequestToken({
     required String amount,
     required String currency,
@@ -42,15 +25,14 @@ class CartDataRepo implements CartDomainRepo {
     required String lName,
     required String phone,
   }) =>
-      cartDTO.getRequestToken(
+      cartDomainRepo.getRequestToken(
           amount: amount,
           currency: currency,
-          email: email,
-          fName: fName,
           lName: lName,
-          phone: phone);
+          fName: fName,
+          phone: phone,
+          email: email);
 
-  @override
   Future<Either<Failures, RequestTokenModel>> getRequestTokenKiosk({
     required String amount,
     required String currency,
@@ -59,15 +41,14 @@ class CartDataRepo implements CartDomainRepo {
     required String lName,
     required String phone,
   }) =>
-      cartDTO.getRequestToken(
+      cartDomainRepo.getRequestTokenKiosk(
           amount: amount,
           currency: currency,
-          email: email,
-          fName: fName,
           lName: lName,
-          phone: phone);
+          fName: fName,
+          phone: phone,
+          email: email);
 
-  @override
   Future<Either<Failures, Map<String, dynamic>>> getReferenceCode() =>
-      cartDTO.getReferenceCode();
+      cartDomainRepo.getReferenceCode();
 }

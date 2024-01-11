@@ -48,7 +48,10 @@ class HomeTab extends StatelessWidget {
                 SizedBox(
                   height: 270.h,
                   child: state is HomeLoadingState
-                      ? const Center(child: CircularProgressIndicator())
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                          color: AppColors.primary,
+                        ))
                       : GridView.builder(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
@@ -69,16 +72,21 @@ class HomeTab extends StatelessWidget {
                                     height: 100.h,
                                     width: 100.w,
                                     child: ClipOval(
-                                      child:CachedNetworkImage(
+                                      child: CachedNetworkImage(
                                         imageUrl: HomeCubit.get(context)
-                                            .categories[index]
-                                            .image?? "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png",
-                                        progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                            CircularProgressIndicator(value: downloadProgress.progress),
-                                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                                                .categories[index]
+                                                .image ??
+                                            "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png",
+                                        progressIndicatorBuilder:
+                                            (context, url, downloadProgress) =>
+                                                CircularProgressIndicator(
+                                          value: downloadProgress.progress,
+                                          color: AppColors.primary,
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(Icons.error),
                                       ),
                                     ),
-
                                   ),
                                   SizedBox(
                                     height: 8.h,
@@ -108,7 +116,10 @@ class HomeTab extends StatelessWidget {
                 SizedBox(
                   height: 270.h,
                   child: state is HomeLoadingState
-                      ? const Center(child: CircularProgressIndicator())
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                          color: AppColors.primary,
+                        ))
                       : GridView.builder(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
@@ -130,11 +141,17 @@ class HomeTab extends StatelessWidget {
                                     child: ClipOval(
                                       child: CachedNetworkImage(
                                         imageUrl: HomeCubit.get(context)
-                                            .brands[index]
-                                            .image?? "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png",
-                                        progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                            CircularProgressIndicator(value: downloadProgress.progress),
-                                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                                                .brands[index]
+                                                .image ??
+                                            "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png",
+                                        progressIndicatorBuilder:
+                                            (context, url, downloadProgress) =>
+                                                CircularProgressIndicator(
+                                          value: downloadProgress.progress,
+                                          color: AppColors.primary,
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(Icons.error),
                                       ),
                                     ),
                                   ),
