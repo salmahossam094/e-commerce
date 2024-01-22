@@ -11,6 +11,7 @@ import 'package:e_commerce/features/cat_details/presentation/widgets/search_delg
 import 'package:e_commerce/features/product_details/data/data_sources/pro_dto.dart';
 import 'package:e_commerce/features/product_details/presentation/manager/cubit.dart';
 import 'package:e_commerce/features/product_details/presentation/manager/states.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
@@ -377,8 +378,12 @@ class ProductDetails extends StatelessWidget {
                           onPressed: () {
                             ProdCubit.get(context)
                                 .addToCart(entity.id.toString());
-                            print(entity.sid);
-                            print(CacheHelper.getData('User'));
+                            if (kDebugMode) {
+                              print(entity.sid);
+                            }
+                            if (kDebugMode) {
+                              print(CacheHelper.getData('User'));
+                            }
                           },
                         ))
                       ],

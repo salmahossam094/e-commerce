@@ -6,6 +6,7 @@ import 'package:e_commerce/features/cart/domain/use_cases/cart_use_case.dart';
 import 'package:e_commerce/features/cart/domain/use_cases/payment_use_case.dart';
 import 'package:e_commerce/features/cart/presentation/manager/states.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/data_sources/cart_dto.dart';
@@ -148,7 +149,9 @@ class CartCubit extends Cubit<CartStates> {
         currency: currency);
     model.fold((l) {
       emit(ErrorRequestTokenKioskState(l.message));
-      print(l.message);
+      if (kDebugMode) {
+        print(l.message);
+      }
     }, (r) {
       requestTokenKiosk = r.token ?? '';
       emit(SuccessRequestTokenKioskState());
@@ -163,7 +166,9 @@ class CartCubit extends Cubit<CartStates> {
     var model = await paymentUseCase.getReferenceCode();
 
     model.fold((l) {
-      print(l.message);
+      if (kDebugMode) {
+        print(l.message);
+      }
 
       emit(ErrorReferenceCodeState(l.message));
     }, (r) {

@@ -6,6 +6,7 @@ import 'package:e_commerce/features/cart/data/data_sources/cart_dto.dart';
 import 'package:e_commerce/features/cart/presentation/manager/cubit.dart';
 import 'package:e_commerce/features/cart/presentation/manager/states.dart';
 import 'package:e_commerce/features/cart/presentation/widgets/cart_item_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -95,7 +96,9 @@ class CartPage extends StatelessWidget {
                 title: Text('This order is paid'),
               ),
             );
-            print(CacheHelper.getData('User'));
+            if (kDebugMode) {
+              print(CacheHelper.getData('User'));
+            }
           } else if (state is SuccessReferenceCodeState) {
             showModalBottomSheet(
               context: context,

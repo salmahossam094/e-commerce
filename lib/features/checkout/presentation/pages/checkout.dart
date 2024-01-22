@@ -298,8 +298,7 @@ class _CheckoutState extends State<Checkout> {
                                                     .totalCartPrice
                                                     .toString()) *
                                                     100.0)
-                                                    .toString() ??
-                                                    '0',
+                                                    .toString(),
                                                 currency: 'EGP',
                                                 email: CacheHelper.getData(
                                                     'Email'),
@@ -335,8 +334,7 @@ class _CheckoutState extends State<Checkout> {
                                                     .totalCartPrice
                                                     .toString()) *
                                                     100.0)
-                                                    .toString() ??
-                                                    '0',
+                                                    .toString(),
                                                 currency: 'EGP',
                                                 email: CacheHelper.getData(
                                                     'Email'),
