@@ -19,7 +19,7 @@ class _VisaWebViewState extends State<VisaWebView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Visa'),
+        title: const Text('Visa'),
       ),
       body: WebViewWidget(controller: controller),
     );

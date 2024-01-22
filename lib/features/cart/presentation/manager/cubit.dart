@@ -23,6 +23,7 @@ class CartCubit extends Cubit<CartStates> {
   double? price;
   TextEditingController phone = TextEditingController();
   var formKey = GlobalKey<FormState>();
+  
 
   Future<void> getCart() async {
     emit(CartLoadingState());
